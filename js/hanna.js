@@ -61,7 +61,7 @@ class musicVis {
 
         // bind data
         vis.arcs = vis.pieChartGroup.selectAll(" .arc")
-            .data(vis.pie(this.keys_short))
+            .data(vis.pie(this.testData))
 
         // append paths
         vis.arcs.enter()
