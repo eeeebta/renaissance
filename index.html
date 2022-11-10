@@ -1,37 +1,40 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div>
-    <div class="container grid mx-auto px-auto">
-        <div class="section-george">
-            <div id="spotifyVis_div">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <div class="container grid mx-auto px-auto">
+                <div class="section-george">
+                    <div id="spotifyVis_div">
+                    </div>
+                </div>
+                <div class="section-hanna">
+                    <div id="musicVis_div">
+                    </div>
+                </div>
+                <div class="section-ibta">
+                    <div id="narrativeVis_div">
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        <div class="section-hanna">
-            <div id="musicVis_div">
-        </div>
-        <div class="section-ibta">
-            <div id="narrativeVis_div">
-        </div>
+        <!-- d3 library-->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
 
-    </div>
+        <!-- our js -->
+        <script src="js/main.js"></script>
+        <script src="js/george.js"></script>
+        <script src="js/hanna.js"></script>
+        <script src="js/ibta.js"></script>
 
-</div>
-<!-- d3 library-->
-<script src="https://d3js.org/d3.v7.min.js"></script>
-
-<!-- our js -->
-<script src="js/main.js"></script>
-<script src="js/george.js"></script>
-<script src="js/hanna.js"></script>
-<script src="js/ibta.js"></script>
-
-<!-- tailwind css -->
-<script src="https://cdn.tailwindcss.com"></script>
-</body>
+        <!-- tailwind css -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </body>
 </html>
 
