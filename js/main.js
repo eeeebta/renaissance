@@ -11,16 +11,29 @@ Promise.all(promises)
     })
     .catch(function(err){ console.log(err) });
 
+// ----STANDARDIZED AESTHETIC STUFF---- //
+let globalMargin = {top: 20, right: 30, bottom: 20, left: 30};
+let globalColors = [];
+
+
+
 // musical data visualization initialization
 function init_musical(allDataArray) {
     // log all data
-    console.log(allDataArray);
+    //console.log(allDataArray);
+
+    // construct music vis
+    myMusicVis = new musicVis("musicVis_div", allDataArray[0]);
 }
 
-/*/function init_spotify(allDataArray) {
-    
-}*/
+// spotify data visualization initialization
+function init_spotify(allDataArray) {
+    // construct spotify vis
+    mySpotifyVis = new spotifyVis("spotifyVis_div", allDataArray);
+}
 
-/*function init_narrative(allDataArray) {
-    
-}*/
+// narrative data visualization initialization
+function init_narrative(allDataArray) {
+    // construct narrative vis
+    myNarrativeVis = new narrativeVis("narrativeVis_div", allDataArray);
+}
