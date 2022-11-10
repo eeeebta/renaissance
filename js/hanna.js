@@ -39,7 +39,7 @@ class musicVis {
 
         // init circle of fifths with d3 pie
         // define outer radius
-        vis.outerRadius = (vis.width / 2) - vis.margin.left - vis.margin.right;
+        vis.outerRadius = (vis.height / 2) - vis.margin.left - vis.margin.right;
 
         // create pie chart group
         vis.pieChartGroup = vis.svg
