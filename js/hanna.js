@@ -56,7 +56,7 @@ class musicVis {
 
         // path generator for arc segments
         vis.arc = d3.arc()
-            .innerRadius(0)
+            .innerRadius(1)
             .outerRadius(vis.outerRadius);
 
         // bind data
