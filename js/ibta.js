@@ -27,6 +27,8 @@ class narrativeVis {
             .append("g")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
+
+
         this.wrangleData()
     }
 
