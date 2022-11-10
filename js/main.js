@@ -1,6 +1,7 @@
 // load all data using promises
 let promises = [
     d3.csv("data/music_data.csv")
+    d3.csv("data/subjective_all.csv")
 ];
 
 Promise.all(promises)

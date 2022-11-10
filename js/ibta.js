@@ -3,6 +3,9 @@ class narrativeVis {
         this.parentElement = parentElement;
         this.data = data;
 
+        // test data, TODO: DELETE
+        this.testData = []
+
         console.log(this.data);
 
         this.initVis()
