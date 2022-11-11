@@ -5,7 +5,7 @@ class musicVis {
 
         // temporary color scheme (DELETE LATER)
         this.tempcolors = d3.schemeSet3;
-        this.testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        this.pieData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
         // key arrays for circle of fifths pie chart
         this.keys_short = ["C", "G", "D", "A", "E", "Cb/B", "Gb/F#", "Db/C#", "Ab", "Eb", "Bb", "F"];
@@ -45,12 +45,11 @@ class musicVis {
         vis.pieChartGroup = vis.svg
             .append("g")
             .attr("class", "pieChart_CoF")
-            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ")")
+            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ") rotate(-15)")
 
         // define pie layout
         vis.pie = d3.pie()
             .value(d => {
-                console.log(d);
                 return d;
             })
 
@@ -61,17 +60,28 @@ class musicVis {
 
         // bind data
         vis.arcs = vis.pieChartGroup.selectAll(" .arc")
-            .data(vis.pie(this.testData))
+            .data(vis.pie(vis.pieData))
 
         // append paths
         vis.arcs.enter()
             .append("path")
             .attr("d", vis.arc)
             .style("fill", (d, i) => {
-                console.log(d);
                 return this.tempcolors[i];
-            })
+            });
 
+
+        vis.arcs
+            .data(vis.keys_short)
+            .enter()
+            .append("text")
+            .text(d => d)
+            .attr("transform", (d, i) => {
+                console.log(d);
+
+            })
+            .attr("text-anchor", "end")
+            .attr("font-size", 12);
 
         this.wrangleData()
     }
