@@ -1,6 +1,7 @@
 // load all data using promises
 let promises = [
     d3.csv("data/music_data.csv"),
+    d3.csv("data/key_signature_data.csv"),
     d3.csv("data/subjective_all.csv"),
     d3.csv("data/songs_cleaned.csv")
 ];
@@ -25,7 +26,7 @@ function init_musical(allDataArray) {
     //console.log(allDataArray);
 
     // construct music vis
-    myMusicVis = new musicVis("musicVis_div", allDataArray[0]);
+    myMusicVis = new musicVis("musicVis_div", allDataArray[0], allDataArray[1]);
 }
 
 // spotify data visualization initialization
