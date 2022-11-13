@@ -56,18 +56,18 @@ class musicVis {
             .innerRadius(1)
             .outerRadius(vis.outerRadius);
 
-        // append tooltip
-        vis.tooltip = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .attr("id", "tooltip_songs")
-
 
         // **** init dots for songs ****
         vis.songDotGroup = vis.svg
             .append("g")
             .attr("class", "song-dots")
-            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ")" )
+            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ") rotate(-15)" )
+
+        // append tooltip
+        vis.tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .attr("id", "tooltip_songs")
 
         this.wrangleData()
     }
@@ -140,15 +140,14 @@ class musicVis {
         vis.songDots.enter()
             .append("circle")
             .attr("class", "dots")
-            .attr("r", 5)
-            .attr("cx", (d, i) => {
-                console.log(d);
-                return 0
-            })
-            .attr("cy", (d, i) => {
-                //console.log(d);
-                return 0
+            .attr("r", 4)
+            .attr("transform", (d) => {
+                let trackScale = d.track_number * 0.1;
+                return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
             })
             .attr("fill", "black")
+
+        //**TO DO BEFORE MONDAY**
+        // append tooltip to songs
     }
 }
