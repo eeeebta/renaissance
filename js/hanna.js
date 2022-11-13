@@ -5,7 +5,9 @@ class musicVis {
         this.keyData = keyData;
 
         // temporary color scheme (DELETE LATER)
-        this.tempcolors = d3.schemeSet3;
+        this.colorScale = d3.scaleLinear()
+            .domain([0, 12])
+            .range(['pink', "purple"])
 
         // data for circle of fifths pie chart
         this.pieData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -43,7 +45,7 @@ class musicVis {
         vis.pieChartGroup = vis.svg
             .append("g")
             .attr("class", "pieChart_CoF")
-            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ") rotate (-15)")
+            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + vis.outerRadius + ") rotate (-15)")
 
         // define pie layout
         vis.pie = d3.pie()
@@ -61,13 +63,12 @@ class musicVis {
         vis.songDotGroup = vis.svg
             .append("g")
             .attr("class", "song-dots")
-            .attr("transform", "translate(" + vis.outerRadius + ", " + vis.outerRadius + ") rotate(-15)" )
+            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + vis.outerRadius + ") rotate(-15)" )
 
         // append tooltip
-        vis.tooltip = d3.select("body")
+        vis.tooltip = d3.select(".section-hanna")
             .append("div")
             .attr("class", "tooltip")
-            .attr("id", "tooltip_songs")
 
         this.wrangleData()
     }
@@ -109,7 +110,7 @@ class musicVis {
         vis.arcs.enter()
             .append("path")
             .attr("d", vis.arc)
-            .style("fill", (d, i) => vis.tempcolors[i])
+            .style("fill", (d, i) => vis.colorScale(i))
             .on("mouseover", function(event, d) {
                 d3.select(this)
                     .attr("stroke-width", "2px")
@@ -146,8 +147,34 @@ class musicVis {
                 return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
             })
             .attr("fill", "black")
+            .on("mouseover", function(event, d) {
+                d3.select(this)
+                    .attr("fill", "lightgrey")
 
-        //**TO DO BEFORE MONDAY**
-        // append tooltip to songs
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX - 40 + "px")
+                    .style("top", -(2 * vis.height + 5 * vis.margin.top) + (event.pageY) + "px")
+                    .html(`
+                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 1vh">
+                            <h3>${d.Song_title}</h3>
+                            <h4>key: ${d.key}</h4>
+                            <h4>BPM: ${d.bpm}</h4>
+                            <h4>Length: ${d.length}</h4>
+                        </div>`);
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .attr("fill", "black")
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
+            })
+
+        //TO-DO
+        //change circle of fifths text to long key description on mouseover
     }
 }

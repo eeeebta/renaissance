@@ -1,0 +1,17 @@
+.section-hanna {
+    align-items: center;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+}
+
+.tooltip h3 {
+    text-align: left;
+    font-weight: bold;
+}
+
+.tooltip h4 {
+    text-align: left;
+}
