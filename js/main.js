@@ -3,7 +3,8 @@ let promises = [
     d3.csv("data/music_data.csv"),
     d3.csv("data/key_signature_data.csv"),
     d3.csv("data/subjective_all.csv"),
-    d3.csv("data/songs_cleaned.csv")
+    d3.csv("data/songs_cleaned.csv"),
+    d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
 ];
 
 Promise.all(promises)
@@ -32,7 +33,7 @@ function init_musical(allDataArray) {
 // spotify data visualization initialization
 function init_spotify(allDataArray) {
     // construct spotify vis
-    mySpotifyVis = new spotifyVis("spotifyVis_div", allDataArray[2]);
+    mySpotifyVis = new spotifyVis("spotifyVis_div", allDataArray[3], allDataArray[4]);
 }
 
 // narrative data visualization initialization
