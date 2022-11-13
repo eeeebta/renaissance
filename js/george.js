@@ -10,7 +10,7 @@ class spotifyVis {
         this.geoData = geoData;
 
 
-
+        console.log("Spotify data analysis")
         this.cleanData();
         this.initVis();
 
@@ -56,12 +56,15 @@ class spotifyVis {
             .attr("height", vis.height)
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
+        vis.colorScale = d3.scaleLinear()
+            .range(['pink', "purple"])
+
         // add title
         vis.svg.append('g')
             .attr('class', 'title')
             .attr('id', 'map-title')
             .append('text')
-            .text('World Map')
+            .text('World Map for 30 days')
             .attr('transform', `translate(${vis.width / 2}, 20)`)
             .attr('text-anchor', 'middle');
 
@@ -82,11 +85,8 @@ class spotifyVis {
             .attr('fill', '#ADDEFF')
             .attr("stroke","rgba(129,129,129,0.35)")
             .attr("d", vis.path);
-        console.log(vis.geoData)
-        console.log("Jfdaasd")
+
         vis.world = topojson.feature(vis.geoData, vis.geoData.objects.countries).features
-        console.log(vis.geoData)
-        console.log("Good up to here")
         vis.countries = vis.svg.selectAll(".country")
             .data(vis.world)
             .enter().append("path")
@@ -121,19 +121,54 @@ class spotifyVis {
 
     wrangleData() {
         let vis = this;
-
+        console.log("Wrangling Spotify Data")
         // create random data structure with information for each land
         vis.countryInfo = {};
-        vis.geoData.objects.countries.geometries.forEach(d => {
-            let randomCountryValue = Math.random() * 4
-            vis.countryInfo[d.properties.name] = {
-                name: d.properties.name,
-                category: 'category_' + Math.floor(randomCountryValue),
-                color: vis.colors[Math.floor(randomCountryValue)],
-                value: randomCountryValue / 4 * 100
+
+        vis.country = {}
+
+        vis.displayData.forEach(function(d){
+            if(!(d.country in vis.country)){
+                vis.country[d.country] = 0
             }
-        })
+            vis.country[d.country] += d.streams
+
+        });
+
+
+
 
         vis.updateVis()
+    }
+    updateVis() {
+        let vis = this;
+        console.log("Updating Globe")
+
+        let keys = Object.keys(vis.country);
+        let max = 0,
+            min = Infinity
+        keys.forEach(function(key){
+                if(key !== 'Global') {
+                    if(vis.country[key] > max){
+                        max = vis.country[key]
+                    }
+                    if(vis.country[key] < min ){
+                        min = vis.country[key]
+                }
+            }
+        });
+        //vis.colorScale.domain(0,max)
+
+        vis.colorScale.domain([0, max]);
+        vis.countries
+            .style("fill", function (d, index) {
+                let name =  d.properties.name
+
+                if(name in vis.country){
+                    return vis.colorScale(vis.country[name])
+                }
+                return "White"
+            })
+        console.log("End spotify data")
     }
 }
