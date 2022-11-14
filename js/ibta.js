@@ -27,7 +27,24 @@ class narrativeVis {
             .append("g")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
+        vis.x = d3.scaleOrdinal()
+            .domain( (d) => {
+                return d.name;
+            });
 
+        vis.y = d3.scaleLinear()
+            .range([0, vis.height]);
+
+        vis.xAxis = d3.axisBottom.scale(vis.x);
+
+        vis.yAxis = d3.axisLeft().scale(vis.y);
+
+        vis.svg.append("g")
+            .attr("class", "x-axis axis")
+            .attr("transform", `translate(0, ${vis.height})`);
+
+        vis.svg.append("g")
+            .attr("class", "y-axis axis");
 
         this.wrangleData()
     }

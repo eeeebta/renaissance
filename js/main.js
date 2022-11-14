@@ -11,7 +11,7 @@ Promise.all(promises)
     .then(function (data) { 
         init_musical(data);
         init_spotify(data);
-        // init_narrative(data);
+        init_narrative(data);
     })
     .catch(function(err){ console.log(err) });
 
@@ -39,5 +39,5 @@ function init_spotify(allDataArray) {
 // narrative data visualization initialization
 function init_narrative(allDataArray) {
     // construct narrative vis
-    myNarrativeVis = new narrativeVis("narrativeVis_div", allDataArray);
+    myNarrativeVis = new narrativeVis("narrativeVis_div", allDataArray[2]);
 }
