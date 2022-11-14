@@ -15,3 +15,13 @@
 .tooltip h4 {
     text-align: left;
 }
+
+.axis-ibta {
+    font-size: 6px;
+}
+
+.line-ibta {
+    fill: none;
+    stroke: #86AC86;
+    stroke-width: 3px;
+}
