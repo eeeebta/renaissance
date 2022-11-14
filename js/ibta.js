@@ -2,17 +2,31 @@ class narrativeVis {
     constructor(parentElement, data) {
         this.parentElement = parentElement;
         this.data = data;
+        this.songNames = [];
+        this.songID = {}
 
         // test data, TODO: DELETE
         this.testData = []
 
-        console.log(this.data);
+        for (let i = 0; i < this.data.length; i++) {
+            this.songNames.push(this.data[i].name);
+            this.songID[this.data[i].name] = i;
+        }
 
-        this.initVis()
+        console.log(this.songNames);
+        console.log(this.songID)
+
+        // console.log(this.data);
+
+
+
+        this.initVis();
     }
 
     initVis() {
         let vis = this;
+
+        
 
         // init margins and height
         vis.margin = globalMargin;
@@ -27,15 +41,12 @@ class narrativeVis {
             .append("g")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
-        vis.x = d3.scaleOrdinal()
-            .domain( (d) => {
-                return d.name;
-            });
+        vis.x = d3.scaleOrdinal(this.songNames);
 
         vis.y = d3.scaleLinear()
             .range([0, vis.height]);
 
-        vis.xAxis = d3.axisBottom.scale(vis.x);
+        vis.xAxis = d3.axisBottom().scale(vis.x);
 
         vis.yAxis = d3.axisLeft().scale(vis.y);
 
@@ -46,11 +57,15 @@ class narrativeVis {
         vis.svg.append("g")
             .attr("class", "y-axis axis");
 
+        vis.svg.append("path")
+            .datum([1, 2, 3])
+
         this.wrangleData()
     }
 
     wrangleData() {
         let vis = this;
+
 
 
 
