@@ -65,6 +65,13 @@ class musicVis {
             .attr("class", "song-dots")
             .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + vis.outerRadius + ") rotate(-15)" )
 
+        // **** init connector lines for song dots ****
+        vis.songLineGroup = vis.svg
+            .append("g")
+            .attr("class", "song-lines")
+            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + vis.outerRadius + ") rotate(-15)" )
+
+
         // append tooltip
         vis.tooltip = d3.select(".section-hanna")
             .append("div")
@@ -84,7 +91,7 @@ class musicVis {
                 centroid_loc: vis.arc.centroid(d)}
             )
         })
-        console.log("key-centroid pairs", vis.keyCentroids);
+        //wwwwaadconsole.log("key-centroid pairs", vis.keyCentroids);
 
         // append key id to song data structure
         vis.songData.forEach(d => {
@@ -115,10 +122,16 @@ class musicVis {
                 d3.select(this)
                     .attr("stroke-width", "2px")
                     .attr("stroke", "black")
+
+                d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
+                    .text(d => d.key_long)
             })
             .on("mouseout", function(event, d) {
                 d3.select(this)
                     .attr("stroke-width", "0px")
+
+                d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
+                    .text(d => d.key_short)
             })
 
         // append key labels @ centroid coordinates
@@ -127,6 +140,7 @@ class musicVis {
             .enter()
             .append("text")
             .attr("class", "key-labels")
+            .attr("id", d => "keyID_" + d.keysig_id)
             .text(d => d.key_short)
             .attr("text-anchor", "middle")
             .attr("font-size", 12)
@@ -173,8 +187,5 @@ class musicVis {
                     .style("top", 0)
                     .html(``);
             })
-
-        //TO-DO
-        //change circle of fifths text to long key description on mouseover
     }
 }
