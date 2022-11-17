@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div>
+  <div class="container grid mx-auto px-auto">
+    <div class="section-george">
+      <div id="spotifyVis_div" style="width:100vh; height:70vh">
+      </div>
+    </div>
+    <div class="section-hanna">
+      <div id="musicVis_div" style="width: 100vh; height:70vh">
+      </div>
+    </div>
+    <div class="section-ibta">
+      <div class="form-control w-full max-w-xs">
+        <label class="label">
+          <span class="label-text">Choose a filter!</span>
+        </label>
+        <select class="select select-bordered" id="filterNar">
+          <option selected value="danceability">Danceability</option>
+          <option value="energy">Energy</option>
+          <option value="loudness">Loudness</option>
+          <option value="mode">Mode</option>
+          <option value="speechiness">Speechiness</option>
+          <option value="instrumentalness">Instrumentalness</option>
+          <option value="liveness">Liveness</option>
+          <option value="valence">Valence</option>
+        </select>
+      </div>
+      <div id="narrativeVis_div" style="width: 100vh; height:70vh">
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- d3 library-->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+
+<!-- our js -->
+<script src="js/main.js"></script>
+<script src="js/george.js"></script>
+<script src="js/hanna.js"></script>
+<script src="js/ibta.js"></script>
+
+<!-- tailwind css -->
+<script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>
+

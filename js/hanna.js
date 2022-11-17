@@ -91,7 +91,7 @@ class musicVis {
                 centroid_loc: vis.arc.centroid(d)}
             )
         })
-        //wwwwaadconsole.log("key-centroid pairs", vis.keyCentroids);
+        //console.log("key-centroid pairs", vis.keyCentroids);
 
         // append key id to song data structure
         vis.songData.forEach(d => {
