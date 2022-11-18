@@ -1,5 +1,36 @@
+/*Hanna visualization stuff*/
 .section-hanna {
     align-items: center;
+}
+
+.musicVis_title {
+    font-size: 5vh;
+    text-align: center;
+}
+
+.musicVis_narrator {
+    font-size: 2vh;
+    padding-top: 3vh;
+    padding-left: 10vh;
+}
+
+.musicVis_progressionDiv {
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+.button {
+    border: solid 2px grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#button_next {
+    float: right;
+}
+
+#button_prev {
+    float: left;
 }
 
 .tooltip {
@@ -16,6 +47,8 @@
     text-align: left;
 }
 
+
+/*Ibta visualization stuff*/
 .axis-ibta {
     font-size: 6px;
 }

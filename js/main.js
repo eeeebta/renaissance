@@ -10,8 +10,8 @@ let promises = [
 Promise.all(promises)
     .then(function (data) { 
         init_musical(data);
-        init_spotify(data);
-        init_narrative(data);
+        //init_spotify(data);
+        //init_narrative(data);
     })
     .catch(function(err){ console.log(err) });
 
@@ -31,13 +31,13 @@ function init_musical(allDataArray) {
 }
 
 // spotify data visualization initialization
-function init_spotify(allDataArray) {
+/*function init_spotify(allDataArray) {
     // construct spotify vis
     mySpotifyVis = new spotifyVis("spotifyVis_div", allDataArray[3], allDataArray[4]);
-}
+}*/
 
 // narrative data visualization initialization
-function init_narrative(allDataArray) {
+/*function init_narrative(allDataArray) {
     // construct narrative vis
     myNarrativeVis = new narrativeVis("narrativeVis_div", allDataArray[2]);
-}
+}*/
