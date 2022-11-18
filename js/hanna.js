@@ -45,7 +45,7 @@ class musicVis {
         vis.pieChartGroup = vis.svg
             .append("g")
             .attr("class", "pieChart_CoF")
-            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + (vis.outerRadius) + ") rotate (-15)")
+            .attr("transform", "translate(" + ((vis.width / 2)) + ", " + (vis.outerRadius) + ") rotate (-15)")
 
         // define pie layout
         vis.pie = d3.pie()
@@ -63,13 +63,13 @@ class musicVis {
         vis.songDotGroup = vis.svg
             .append("g")
             .attr("class", "song-dots")
-            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + (vis.outerRadius) + ") rotate(-15)" )
+            .attr("transform", "translate(" + ((vis.width / 2)) + ", " + (vis.outerRadius) + ") rotate(-15)" )
 
         // **** init connector lines for song dots ****
         vis.songLineGroup = vis.svg
             .append("g")
             .attr("class", "song-lines")
-            .attr("transform", "translate(" + ((vis.width / 2) + vis.margin.left) + ", " + (vis.outerRadius) + ") rotate(-15)" )
+            .attr("transform", "translate(" + ((vis.width / 2)) + ", " + (vis.outerRadius) + ") rotate(-15)" )
 
 
         // append tooltip
@@ -103,7 +103,21 @@ class musicVis {
             })
             d.track_number = +d.track_number;
             d.keyID = +keyID.keysig_id;
+            d.smooth_transition = (d.smooth_transition === "TRUE");
         })
+
+        // make array of song-coordinate pairs
+        vis.songCoords = []
+        vis.songData.forEach((d) => {
+            let trackScale = d.track_number * 0.1;
+
+            vis.songCoords.push(
+                {track_number: d.track_number,
+                x_coord: trackScale * vis.keyCentroids[d.keyID].centroid_loc[0],
+                y_coord: trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]}
+            )
+        })
+        console.log(vis.songCoords);
 
         this.updateVis();
     }
@@ -186,9 +200,14 @@ class musicVis {
                 return "translate(" + (1.7 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.7 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
             })
 
+        if (vis.slideNo > 3) {
+            vis.showPaths();
+        }
+
         vis.showHideDots();
 
     }
+
     buttonPrev() {
         let vis = this;
 
@@ -259,7 +278,51 @@ class musicVis {
         }
     }
 
+    showPaths() {
+        let vis = this;
 
+        vis.bezierControls = [
+            [-20, -10, -30, -20],
+            [150, -70, -40, 170],
+            [-50, -50, 0, -90],
+            [70, -70, 70, -70],
+            [100, -50, 100, 100],
+            [-230, 100, -30, -250],
+            [160, 0, 100, 180],
+            [-250, 50, -100, -250],
+            [150, -100, 220, 0],
+            [90, 200, -70, 220],
+            [-200, 100, -250, -50],
+            [-140, -190, -50, -260],
+            [350, -150, 250, 100],
+            [70, 320, -450, 250],
+            [-120, -280, 0, -310]
+        ]
 
+        vis.transitionPaths = vis.songDotGroup.selectAll(".transitionPaths")
+            .data(vis.songData);
+
+        vis.transitionPaths.enter()
+            .append("path")
+            .attr("class", "transitionPaths")
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .style("stroke-dasharray", d => {
+                if (d.smooth_transition === true){
+                    return ("0, 0");
+                }
+                else {
+                    return ("3, 3");
+                }
+            })
+            .attr("d" , (d, i) => {
+                if (i < 15) {
+                    return (`M ${vis.songCoords[i].x_coord}, ${vis.songCoords[i].y_coord} `
+                            + `C ${vis.bezierControls[i][0]} ${vis.bezierControls[i][1]}  ${vis.bezierControls[i][2]} ${vis.bezierControls[i][3]} `
+                            +`${vis.songCoords[i + 1].x_coord}, ${vis.songCoords[i + 1].y_coord}`);
+                }
+            })
+
+    }
 }
 

@@ -1,4 +1,4 @@
-track_number,Song_title,bpm,key,length,smooth transition to next song?,genre(s),sample 1,sample 1 year,sample 1 genre,sample 2,sample 2 year,sample 2 genre,sample 3,sample 3 year,sample 3 genre,sample 4,sample 4 year,sample 4 genre
+track_number,Song_title,bpm,key,length,smooth_transition,genre(s),sample 1,sample 1 year,sample 1 genre,sample 2,sample 2 year,sample 2 genre,sample 3,sample 3 year,sample 3 genre,sample 4,sample 4 year,sample 4 genre
 1,I'M THAT GIRL,106,C minor,3:28,TRUE,"hip hop, minimal house",Tommy Wright III f/ Princess Loko – “Still Pimpin”,1995,"hip hop, rap",,,,,,,,,
 2,COZY,112,G minor,3:30,TRUE,90's house,"Lidell Townsell & M.T.F – “Get With U”
 ",1992,house,"Danube Dance f/ Kim Cooper - ""Unique""",1996,house,"TS Madison - ""Bitch I'm Black""",2020,spoken word,,,
