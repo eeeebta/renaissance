@@ -1,13 +1,13 @@
-keysig_id,key_short,key_long,key_full
-0,C,C major/ A minor,C major/ A minor
-1,G,G major/ E minor,G major/ E minor
-2,D,D major/ B minor,D major/ B minor
-3,A,A major/ F# minor,A major/ F# minor/ Gb minor
-4,E,E major/ C# minor,E major/ C# minor/ Db minor
-5,Cb/B,B major/ G# minor,B major/ G# minor/ Ab minor
-6,Gb/F#,F#/Gb major/ D#/Eb minor,F# major/ Gb major/ D# minor/ Eb minor
-7,Db/C#,Db major/ Bb minor,C# major/ Db major/ Bb minor/ A# minor
-8,Ab,Ab major/ F minor,Ab major/ G# major/  F minor
-9,Eb,Eb major/ C minor,Eb major/ D# major/ C minor
-10,Bb,Bb major/ G minor,Bb major/ A# major/ G minor
-11,F,F major/ D minor,F major/ D minor
+keysig_id,key_major,key_minor,key_full
+0,C major,A minor,C major/ A minor
+1,G major,E minor,G major/ E minor
+2,D major,B minor,D major/ B minor
+3,A major,Gb/F# minor,A major/ F# minor/ Gb minor
+4,E major,Db/C# minor,E major/ C# minor/ Db minor
+5,Cb/B major,Ab/G# minor,B major/ G# minor/ Ab minor
+6,Gb/F# major,Eb/D# minor,F# major/ Gb major/ D# minor/ Eb minor
+7,Db/C# major,Bb/A# minor,C# major/ Db major/ Bb minor/ A# minor
+8,Ab/G# major,F minor,Ab major/ G# major/  F minor
+9,Eb/D# major,C minor,Eb major/ D# major/ C minor
+10,Bb/A# major,G minor,Bb major/ A# major/ G minor
+11,F major,D minor,F major/ D minor

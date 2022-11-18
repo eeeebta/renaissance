@@ -6,12 +6,16 @@
 .musicVis_title {
     font-size: 5vh;
     text-align: center;
+    font-family: Grenze Gotisch;
 }
 
 .musicVis_narrator {
     font-size: 2vh;
+    font-family: EB Garamond;
+    text-align: center;
     padding-top: 3vh;
-    padding-left: 10vh;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
 .musicVis_progressionDiv {
@@ -33,6 +37,12 @@
     float: left;
 }
 
+.key_labels {
+    font-family: EB Garamond;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .tooltip {
     position: absolute;
     text-align: center;
@@ -46,7 +56,6 @@
 .tooltip h4 {
     text-align: left;
 }
-
 
 /*Ibta visualization stuff*/
 .axis-ibta {

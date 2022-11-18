@@ -125,7 +125,7 @@ class musicVis {
                     "Hover each major key area to see the associated minor key.";
                 break;
             case 3:
-                vis.narrativeText = "This is all of the songs on RENAISSANCE, placed in the slice of the" +
+                vis.narrativeText = "This is all of the songs on RENAISSANCE, placed in the slice of the " +
                     "key they're in. The songs begin in the middle with I'M THAT GIRL, and progress outward," +
                     "ending neares to the outside with SUMMER RENAISSANCE.";
                 break;
@@ -154,19 +154,22 @@ class musicVis {
             .attr("d", vis.arc)
             .style("fill", (d, i) => vis.colorScale(i))
             .on("mouseover", function(event, d) {
-                d3.select(this)
-                    .attr("stroke-width", "2px")
-                    .attr("stroke", "black")
+                if (vis.slideNo > 1) {
+                    d3.select(this)
+                        .attr("stroke-width", "2px")
+                        .attr("stroke", "black")
 
-                d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
-                    .text(d => d.key_long)
+                    d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
+                        .text(d => d.key_minor)
+                }
             })
             .on("mouseout", function(event, d) {
                 d3.select(this)
                     .attr("stroke-width", "0px")
 
                 d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
-                    .text(d => d.key_short)
+                    .text(d => d.key_major)
+                    .attr("class", "key_labels")
             })
 
         // append key labels @ centroid coordinates
@@ -174,61 +177,89 @@ class musicVis {
             .data(vis.keyData)
             .enter()
             .append("text")
-            .attr("class", "key-labels")
+            .attr("class", "key_labels")
             .attr("id", d => "keyID_" + d.keysig_id)
-            .text(d => d.key_short)
+            .text(d => d.key_major)
             .attr("text-anchor", "middle")
             .attr("font-size", 12)
             .attr("transform", (d, i) => {
-                return "translate(" + (1.8 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.8 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
+                return "translate(" + (1.7 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.7 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
             })
+
+        vis.showHideDots();
+
+    }
+    buttonPrev() {
+        let vis = this;
+
+        if (vis.slideNo > 1 && vis.slideNo <= 5) {
+            vis.slideNo -= 1;
+        }
+        vis.updateVis();
+    }
+
+    buttonNext() {
+        let vis = this;
+
+        console.log(vis.slideNo)
+
+        if (vis.slideNo >= 1 && vis.slideNo < 5) {
+            vis.slideNo += 1;
+        }
+        vis.updateVis();
+    }
+
+    showHideDots() {
+        let vis = this;
 
         // SONG DOT STUFF
         vis.songDots = vis.songDotGroup.selectAll(".dots")
             .data(vis.songData);
 
-        vis.songDots.enter()
-            .append("circle")
-            .attr("class", "dots")
-            .attr("r", "0.7vh")
-            .attr("transform", (d) => {
-                let trackScale = d.track_number * 0.1;
-                return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
-            })
-            .attr("fill", "black")
-            .on("mouseover", function(event, d) {
-                d3.select(this)
-                    .attr("fill", "lightgrey")
+        if (vis.slideNo < 3) {
+            vis.dots = vis.songDotGroup.selectAll(".dots")
+            vis.dots .remove();
+        }
+        else if (vis.slideNo >= 3) {
+            vis.songDots.enter()
+                .append("circle")
+                .attr("class", "dots")
+                .attr("r", "0.7vh")
+                .attr("transform", (d) => {
+                    let trackScale = d.track_number * 0.1;
+                    return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
+                })
+                .attr("fill", "black")
+                .on("mouseover", function(event, d) {
+                    d3.select(this)
+                        .attr("fill", "lightgrey")
 
-                vis.tooltip
-                    .style("opacity", 1)
-                    .style("left", event.pageX - 40 + "px")
-                    .style("top", -(1 * vis.height + 350) + (event.pageY) + "px")
-                    .html(`
+                    vis.tooltip
+                        .style("opacity", 1)
+                        .style("left", event.pageX - 40 + "px")
+                        .style("top", -(1 * vis.height + 350) + (event.pageY) + "px")
+                        .html(`
                         <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 1vh">
                             <h3 class="song_title">${d.Song_title}</h3>
                             <h4 class="song_info">key: ${d.key}</h4>
                             <h4 class="song_info">BPM: ${d.bpm}</h4>
                             <h4 class="song_info">Length: ${d.length}</h4>
                         </div>`);
-            })
-            .on("mouseout", function(event, d) {
-                d3.select(this)
-                    .attr("fill", "black")
+                })
+                .on("mouseout", function(event, d) {
+                    d3.select(this)
+                        .attr("fill", "black")
 
-                vis.tooltip
-                    .style("opacity", 0)
-                    .style("left", 0)
-                    .style("top", 0)
-                    .html(``);
-            })
+                    vis.tooltip
+                        .style("opacity", 0)
+                        .style("left", 0)
+                        .style("top", 0)
+                        .html(``);
+                })
+        }
     }
+
+
+
 }
 
-function buttonPrev() {
-    console.log("previous button pressed")
-}
-
-function buttonNext() {
-    console.log("next button pressed")
-}
