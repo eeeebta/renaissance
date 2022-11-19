@@ -397,7 +397,6 @@ class sampleVis{
                 }
             }
             if (d.sample_2 != ""){
-                console.log(vis.alreadyPushed(d.sample_2, vis.sampleData));
                 if (!vis.alreadyPushed(d.sample_2, vis.sampleData)) {
                     vis.sampleData.push(
                         {sample: d.sample_2,
@@ -405,18 +404,22 @@ class sampleVis{
                     )
                 }
             }
-            /*if (d.sample_3 != ""){
-                vis.sampleData.push(
-                    {sample: d.sample_3,
-                    year: d.sample_3_year}
-                )
+            if (d.sample_3 != ""){
+                if (!vis.alreadyPushed(d.sample_3, vis.sampleData)) {
+                    vis.sampleData.push(
+                        {sample: d.sample_3,
+                            year: d.sample_3_year}
+                    )
+                }
             }
             if (d.sample_4 != ""){
-                vis.sampleData.push(
-                    {sample: d.sample_4,
-                    year: d.sample_4_year}
-                )
-            }*/
+                if (!vis.alreadyPushed(d.sample_4, vis.sampleData)) {
+                    vis.sampleData.push(
+                        {sample: d.sample_4,
+                            year: d.sample_4_year}
+                    )
+                }
+            }
         })
         console.log(vis.sampleData);
 
