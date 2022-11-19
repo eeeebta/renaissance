@@ -28,6 +28,7 @@ function init_musical(allDataArray) {
 
     // construct music vis
     myMusicVis = new musicVis("musicVis_div", allDataArray[0], allDataArray[1]);
+    mySampleVis = new sampleVis("sampleVis_div", allDataArray[0]);
 }
 
 // spotify data visualization initialization

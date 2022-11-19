@@ -12,7 +12,7 @@ class musicVis {
         // data for circle of fifths pie chart
         this.pieData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-        console.log("musical data: " , this.songData);
+        //console.log("musical data: " , this.songData);
 
         this.initVis()
     }
@@ -117,7 +117,7 @@ class musicVis {
                 y_coord: trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]}
             )
         })
-        console.log(vis.songCoords);
+        //console.log(vis.songCoords);
 
         this.updateVis();
     }
@@ -141,12 +141,12 @@ class musicVis {
             case 3:
                 vis.narrativeText = "This is all of the songs on RENAISSANCE, placed in the slice of the " +
                     "key they're in. The songs begin in the middle with I'M THAT GIRL, and progress outward," +
-                    "ending neares to the outside with SUMMER RENAISSANCE.";
+                    " ending nearest to the outside with SUMMER RENAISSANCE.";
                 break;
             case 4:
                 vis.narrativeText = "Some songs transition seamlessly into one another, while some songs have" +
-                    "a clear break between them. The smooth transitions are represented by solid lines, while the" +
-                    "breaks are represented by dotted lines.";
+                    " a clear break between them. The smooth transitions are represented by solid lines, while the" +
+                    " breaks are represented by dotted lines.";
                 break;
             case 5:
                 vis.narrativeText = "RENAISSANCE begins in the rarely-used key of C minor and journeys " +
@@ -326,3 +326,116 @@ class musicVis {
     }
 }
 
+class sampleVis{
+    constructor(parentElement, songData) {
+        this.parentElement = parentElement;
+        this.songData = songData;
+
+        // temporary color scheme (DELETE LATER)
+        this.colorScale = d3.scaleLinear()
+            .domain([0, 12])
+            .range(['pink', "purple"])
+
+        console.log("musical data: " , this.songData);
+
+        this.initVis()
+    }
+
+    initVis() {
+        let vis = this;
+
+        // init global margin & color conventions
+        vis.margin = globalMargin;
+        vis.colors = globalColors;
+
+        // init height and width
+        vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
+
+        // init drawing area
+        vis.svg = d3.select("#" + vis.parentElement)
+            .append("svg")
+            .attr("width", vis.width + vis.margin.left + vis.margin.right)
+            .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+
+        // init axis scales
+        vis.x = d3.scaleLinear()
+            .range([0, vis.width])
+        vis.y = d3.scaleLinear()
+            .range([vis.height, 0])
+
+        // init axes
+        vis.xAxis = d3.axisBottom()
+            .scale(vis.x)
+        vis.xAxis = d3.axisLeft()
+            .scale(vis.y)
+
+        // init axes on svg
+        vis.svg.append("g")
+            .attr("class", "x-axis axis")
+            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+        vis.svg.append("g")
+            .attr("class", "y-axis axis")
+            .attr("transform", `translate(${0}, ${0})`)
+
+        vis.wrangleData();
+    }
+
+    wrangleData() {
+        let vis = this;
+
+        vis.sampleData = [];
+        vis.songData.forEach(d => {
+            if (d.sample_1 != ""){
+                if (!vis.alreadyPushed(d.sample_1, vis.sampleData)) {
+                    vis.sampleData.push(
+                        {sample: d.sample_1,
+                            year: d.sample_1_year}
+                    )
+                }
+            }
+            if (d.sample_2 != ""){
+                console.log(vis.alreadyPushed(d.sample_2, vis.sampleData));
+                if (!vis.alreadyPushed(d.sample_2, vis.sampleData)) {
+                    vis.sampleData.push(
+                        {sample: d.sample_2,
+                            year: d.sample_2_year}
+                    )
+                }
+            }
+            /*if (d.sample_3 != ""){
+                vis.sampleData.push(
+                    {sample: d.sample_3,
+                    year: d.sample_3_year}
+                )
+            }
+            if (d.sample_4 != ""){
+                vis.sampleData.push(
+                    {sample: d.sample_4,
+                    year: d.sample_4_year}
+                )
+            }*/
+        })
+        console.log(vis.sampleData);
+
+    }
+
+    updateVis() {
+        let vis = this;
+
+
+    }
+
+    alreadyPushed(d, array) {
+        let vis = this;
+
+        let exists = vis.sampleData.some(element => {
+            return (element.sample === d)
+        });
+
+        return exists;
+    }
+
+}
