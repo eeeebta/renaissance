@@ -362,23 +362,26 @@ class sampleVis{
 
         // init axis scales
         vis.x = d3.scaleLinear()
-            .range([0, vis.width])
+            .range([0, vis.width - vis.margin.left - vis.margin.right])
         vis.y = d3.scaleLinear()
-            .range([vis.height, 0])
+            .range([vis.height - vis.margin.top - vis.margin.bottom, 0])
 
         // init axes
         vis.xAxis = d3.axisBottom()
             .scale(vis.x)
-        vis.xAxis = d3.axisLeft()
+            .tickFormat(d3.format('d'));
+        vis.yAxis = d3.axisLeft()
             .scale(vis.y)
+            .ticks(4);
 
         // init axes on svg
         vis.svg.append("g")
             .attr("class", "x-axis axis")
-            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+            .attr("transform", `translate(${vis.margin.left}, ${vis.height - vis.margin.top})`)
+
         vis.svg.append("g")
             .attr("class", "y-axis axis")
-            .attr("transform", `translate(${0}, ${0})`)
+            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
         vis.wrangleData();
     }
@@ -386,13 +389,14 @@ class sampleVis{
     wrangleData() {
         let vis = this;
 
+        // create array of unique sample
         vis.sampleData = [];
         vis.songData.forEach(d => {
             if (d.sample_1 != ""){
                 if (!vis.alreadyPushed(d.sample_1, vis.sampleData)) {
                     vis.sampleData.push(
                         {sample: d.sample_1,
-                            year: d.sample_1_year}
+                            year: +d.sample_1_year}
                     )
                 }
             }
@@ -400,7 +404,7 @@ class sampleVis{
                 if (!vis.alreadyPushed(d.sample_2, vis.sampleData)) {
                     vis.sampleData.push(
                         {sample: d.sample_2,
-                            year: d.sample_2_year}
+                            year: +d.sample_2_year}
                     )
                 }
             }
@@ -408,7 +412,7 @@ class sampleVis{
                 if (!vis.alreadyPushed(d.sample_3, vis.sampleData)) {
                     vis.sampleData.push(
                         {sample: d.sample_3,
-                            year: d.sample_3_year}
+                            year: +d.sample_3_year}
                     )
                 }
             }
@@ -416,18 +420,56 @@ class sampleVis{
                 if (!vis.alreadyPushed(d.sample_4, vis.sampleData)) {
                     vis.sampleData.push(
                         {sample: d.sample_4,
-                            year: d.sample_4_year}
+                            year: +d.sample_4_year}
                     )
                 }
             }
         })
         console.log(vis.sampleData);
 
+        // aggregate # of samples based on their release year
+        vis.samplesPerYear = [];
+        vis.samplesPerYear = d3.range(1972, 2021).map(function() {
+            return 0;
+        })
+
+        vis.sampleData.forEach((entry) => {
+            d3.range(1972, 2021).forEach((y, i) => {
+                if (entry.year === y) {
+                    vis.samplesPerYear[i] += 1;
+                }
+            })
+        })
+
+        console.log(vis.samplesPerYear);
+
+        vis.updateVis();
+
     }
 
     updateVis() {
         let vis = this;
 
+        // add domain to axes
+        vis.x.domain([1972, 2020]);
+        vis.y.domain(d3.extent(vis.samplesPerYear));
+
+        // call axis functions
+        vis.svg.select(".x-axis").call(vis.xAxis);
+        vis.svg.select(".y-axis").call(vis.yAxis);
+
+        // draw bars
+        let bars = vis.svg.selectAll(".bar")
+            .data(vis.samplesPerYear);
+
+        bars.enter().append("rect")
+            .attr("class", "bar")
+            .merge(bars)
+            .attr("width", 10)
+            .attr("fill", "white")
+            .attr("height", (d, i) => console.log(d))
+            .attr("x", (d, i) => vis.x(1972 + i))
+            .attr("y", vis.height / 2)
 
     }
 

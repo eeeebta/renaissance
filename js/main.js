@@ -1,3 +1,6 @@
+// year parser
+let parseYear = d3.timeParse("%Y");
+
 // load all data using promises
 let promises = [
     d3.csv("data/music_data.csv"),
@@ -18,8 +21,6 @@ Promise.all(promises)
 // ----STANDARDIZED AESTHETIC STUFF---- //
 let globalMargin = {top: 20, right: 30, bottom: 20, left: 30};
 let globalColors = [];
-
-
 
 // musical data visualization initialization
 function init_musical(allDataArray) {
