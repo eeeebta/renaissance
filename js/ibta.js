@@ -159,6 +159,8 @@ class lyricVis {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append("g")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+
+        this.wrangleData();
     }
 
     wrangleData() {
@@ -169,5 +171,17 @@ class lyricVis {
 
     updateVis() {
 
+        let vis = this;
+
+        let selectedValue = d3.select("#filterSong").property("value");
+
+        let lyrics = d3.select("#lyrics-view");
+        let desc = d3.select("#song-desc");
+
+        lyrics
+            .append("text")
+            .attr("lyrics")
+            .text("")
+        
     }
 }

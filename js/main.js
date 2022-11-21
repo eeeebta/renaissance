@@ -47,4 +47,5 @@ function init_spotify(allDataArray) {
 function init_narrative(allDataArray) {
     // construct narrative vis
     myNarrativeVis = new narrativeVis("narrativeVis_div", allDataArray[2]);
+    myLyricVis = new lyricVis("lyricVis_div", allDataArray[4]);
 }
