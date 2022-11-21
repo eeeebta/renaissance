@@ -1,14 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="luxury">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <link href='https://fonts.googleapis.com/css?family=Grenze Gotisch' rel='stylesheet'>
+
 </head>
 <body>
 <div>
   <div class="container grid mx-auto px-auto">
+    <div class="intro">
+        <div class="intro_title" style="width: 100%; height: 8vh">
+            <h1>A Subjective and (Brief) Narrative Analysis</h1>
+        </div>
+    </div>
     <div class="section-ibta">
       <div class="form-control w-full max-w-xs">
         <label class="label">
@@ -25,7 +32,7 @@
           <option value="valence">Valence</option>
         </select>
       </div>
-      <div id="narrativeVis_div" style="width: 100vh; height:70vh">
+      <div id="narrativeVis_div" style="width: 100vh; height:90vh">
       </div>
 
       <div class="form-control w-full max-w-xs">
@@ -50,12 +57,13 @@
           <option value="PURE/HONEY">PURE/HONEY</option>
           <option value="SUMMER RENAISSANCE">SUMMER RENAISSANCE</option>
         </select>
+        <h3>thank you genius for providing this data</h3>
       </div>
-      <div id="lyricVis_div" style="width: 100vh; height:70vh">
-        <div class="grid-cols-2">
-          <div id="lyrics-view" class="lyrics-view">
-          </div>
-          <div id="song-desc" class="song-desc">
+      <div id="lyricVis_div"">
+        <div class="grid grid-cols-3">
+          <br>
+          <div id="lyrics-view" class="col-auto"></div>
+          <div id="song-desc" class="col-auto">
 
           </div>
         </div>

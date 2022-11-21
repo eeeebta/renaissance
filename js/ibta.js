@@ -94,6 +94,12 @@ class narrativeVis {
 
         let selectedValue = d3.select("#filterNar").property("value");
 
+        let texts = d3.selectAll("text")
+            .data(vis.data)
+
+
+        texts.enter().attr('transform', 'rotate(45, ' + function (d) { return vis.x(d.name)} + ', ' + function (d) { return vis.y(d[selectedValue])} + ')')
+
         let circles = vis.svg.selectAll(".circles")
             .data(vis.data)
 
@@ -105,7 +111,7 @@ class narrativeVis {
             .transition()
             .duration(100)
             .attr("class", "circles")
-            .attr("fill", "black")
+            .attr("fill", "#DDA54C")
             .attr("stroke", "none")
             .attr("cx", (d) => { return vis.x(d.name)})
             .attr("cy", (d) => { return vis.y(d[selectedValue]) })
@@ -126,9 +132,11 @@ class narrativeVis {
                 })
             )
 
-        // vis.y.range([0, d3.max(vis.data, (d) => {
-        //     return +d[selectedValue];
-        // })]);
+        vis.y.domain([d3.min(vis.data, (d) => {
+            return d[selectedValue];
+        }), d3.max(vis.data, (d) => {
+            return +d[selectedValue];
+        })]);
 
         vis.svg.select(".y-axis").call(vis.yAxis);
 
@@ -140,6 +148,9 @@ class lyricVis {
     constructor(parentElement, data) {
         this.parentElement = parentElement;
         this.data = data;
+        this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
+
+        console.log(data)
 
         this.initVis();
     }
@@ -152,13 +163,11 @@ class lyricVis {
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
-        // init drawing area
-        vis.svg = d3.select("#" + vis.parentElement)
-            .append("svg")
-            .attr("width", vis.width + vis.margin.left + vis.margin.right)
-            .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+        d3.select("#filterSong")
+            .on("change", () => {
+                vis.updateVis();
+        })
+
 
         this.wrangleData();
     }
@@ -175,21 +184,59 @@ class lyricVis {
 
         let selectedValue = d3.select("#filterSong").property("value");
 
-        let lyrics = d3.select(".temp-lyrics");
-        let desc = d3.select(".temp-desc");
+        // console.log(vis.data[vis.songRef[selectedValue]]["lyrics"]);
 
-        lyrics.remove();
-        desc.remove();
+        let lyrics = d3.select("#lyrics-view");
+        let desc = d3.select("#song-desc");
 
-        lyrics
-            .append("text")
+        let tmpLyrics = d3.selectAll(".tmpLyric");
+        let tmpDesc = d3.selectAll(".tmpDesc");
+
+        let tmpDescDiv = d3.selectAll(".temp-lyrics");
+
+        let tmpSong = d3.selectAll(".song-desc");
+
+        tmpSong.remove();
+        tmpDescDiv.remove();
+
+        
+
+        tmpLyrics.remove();
+        tmpDesc.remove();
+        
+        // desc.remove();
+
+       let newLyrics = vis.data[vis.songRef[selectedValue]]["lyrics"].split("\\n");
+       let newDesc = vis.data[vis.songRef[selectedValue]]["annotation"].split("\\n");
+
+       console.log(newLyrics)
+
+       let newLstring = "";
+       let newDescString = "";
+
+       newLyrics.forEach( (i) => {
+            newLstring = newLstring + `<p class='tmpLyric'>${i}</p>`;
+       })
+
+       newDesc.forEach( (i) => {
+            newDescString = newDescString + `<p class='tmpDesc'>${i}</p>`
+       })
+
+        tmpLyrics = lyrics
+            .append("div")
             .attr("class", "temp-lyrics")
-            .text(this.data[selectedValue][1])
 
-        desc
-            .append("text")
-            .attr("class", "temp-desc")
-            .text(this.data[selectedValue][2])
+        tmpDesc = desc
+            .append("div")
+            .attr("class", "song-desc")
+        
+        tmpLyrics
+            .html(newLstring);
+
+        tmpDesc
+            .html(newDescString);
+
+        
         
     }
 }
