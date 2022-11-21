@@ -175,13 +175,21 @@ class lyricVis {
 
         let selectedValue = d3.select("#filterSong").property("value");
 
-        let lyrics = d3.select("#lyrics-view");
-        let desc = d3.select("#song-desc");
+        let lyrics = d3.select(".temp-lyrics");
+        let desc = d3.select(".temp-desc");
+
+        lyrics.remove();
+        desc.remove();
 
         lyrics
             .append("text")
-            .attr("lyrics")
-            .text("")
+            .attr("class", "temp-lyrics")
+            .text(this.data[selectedValue][1])
+
+        desc
+            .append("text")
+            .attr("class", "temp-desc")
+            .text(this.data[selectedValue][2])
         
     }
 }
