@@ -67,3 +67,59 @@
     stroke: #86AC86;
     stroke-width: 3px;
 }
+
+/* George's little css corner (aka using Hanna's css :)) */
+
+/* need to standardize formatting with variables for colors, check out next week*/
+
+
+
+
+
+.section-george{
+    margin:auto;
+}
+
+
+.intro_title {
+    padding: 10px;
+    /* adjust margin bottom */
+    margin-bottom: 40px;
+    font-size: 7vh;
+    text-align: center;
+    font-family: Grenze Gotisch;
+}
+.section_title{
+    font-size: 5vh;
+    text-align: center;
+    font-family: Grenze Gotisch;
+}
+
+.subsection-title {
+    font-size: 5vh;
+    text-align: center;
+    font-family: Grenze Gotisch;
+}
+
+
+.spotifyVis_div{
+    margin:auto;
+}
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child1 {
+    width: 45%;
+    height: 100%;
+    float: left;
+    padding: 10px;
+}
+
+.float-child2 {
+    width: 55%;
+    height: 100%;
+    float: left;
+    padding: 10px;
+}

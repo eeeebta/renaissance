@@ -1,20 +1,39 @@
 <!doctype html>
 <html lang="en" data-theme="luxury">
-    <head>
+<head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/styles.css">
         <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
+        <link href='https://fonts.googleapis.com/css?family=Grenze Gotisch' rel='stylesheet'>
     </head>
     <body>
         <div>
             <div class="container grid mx-auto px-auto">
-                <div class="section-george">
-                    <div id="spotifyVis_div" style="width:100vh; height:70vh">
+                <div class="intro">
+                    <div class="intro_title" style="width: 100%; height: 8vh">
+                        <h1> Exploring Renaissance</h1>
                     </div>
                 </div>
+                <div class="section-george">
+                    <div class="section_title" style="width: 100%; height: 8vh">
+                        <h1>Boiler text about the effect of renaissance</h1>
+                    </div>
+                    <div class="subsection-title" style="width: 100%; height: 8vh">
+                        <h3>Renaissance Streams Worldwide</h3>
+                    </div>
+                    <div id="spotifyVisGlobe_div" style="width:150vh; height:70vh"></div>
+                    <div class="subsection-title">
+                        <h2> Renaissance Streams by song</h2>
+                    </div>
+                    <div class="float-container" style="width:150vh; height:100vh">
+                        <div class="float-child1" id="spotifyVisBar_div"></div>
+                        <div class="float-child2" id="spotifyVisGraph_div" style="background:red"></div>
+                    </div>
+
+                </div>
                 <div class="section-hanna">
-                    <div id="musicVis_div" style="width: 100vh; height:70vh">
+                    <div id="musicVis_div" style="width: 50vh; height:70vh">
                     </div>
                 </div>
                 <div class="section-ibta">
@@ -52,6 +71,7 @@
 
         <!-- tailwind css -->
         <script src="https://cdn.tailwindcss.com"></script>
+
     </body>
 </html>
 
