@@ -6,27 +6,20 @@ class narrativeVis {
         // this.songID = {}
         this.danceability = []
 
-        // test data, TODO: DELETE
-        this.testData = []
-
         this.data.forEach((d) => {
             d.danceability = +d.danceability;
+            d.energy = +d.energy;
+            d.key = +d.key;
+            d.loudness = +d.loudness;
+            d.mode = +d.mode;
+            d.speechiness = +d.speechiness;
+            d.acousticness = +d.acousticness;
+            d.instrumentalness = +d.instrumentalness;
+            d.liveness = +d.liveness;
+            d.valence = +d.valence;
+            d.tempo = +d.tempo;
             this.songNames.push(d.name)
         })
-
-        // for (let i = 0; i < this.data.length; i++) {
-        //     this.songNames.push(this.data[i].name);
-        // //     this.songID[this.data[i].name] = i;
-        // //     this.danceability.push(+this.data[i].danceability);
-        // }
-
-        // console.log(this.songNames);
-        // console.log(this.songID)
-        // console.log(this.danceability)
-
-        // console.log(this.data);
-
-
 
         this.initVis();
     }
@@ -138,6 +131,43 @@ class narrativeVis {
         // })]);
 
         vis.svg.select(".y-axis").call(vis.yAxis);
+
+    }
+}
+
+
+class lyricVis {
+    constructor(parentElement, data) {
+        this.parentElement = parentElement;
+        this.data = data;
+
+        this.initVis();
+    }
+
+    initVis() {
+        let vis = this;
+
+        // init margins and height
+        vis.margin = globalMargin;
+        vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
+
+        // init drawing area
+        vis.svg = d3.select("#" + vis.parentElement)
+            .append("svg")
+            .attr("width", vis.width + vis.margin.left + vis.margin.right)
+            .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
+    }
+
+    wrangleData() {
+        let vis = this;
+
+        vis.updateVis();
+    }
+
+    updateVis() {
 
     }
 }
