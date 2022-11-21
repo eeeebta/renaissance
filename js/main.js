@@ -7,6 +7,7 @@ let promises = [
     d3.csv("data/key_signature_data.csv"),
     d3.csv("data/subjective_all.csv"),
     d3.csv("data/songs_cleaned.csv"),
+    d3.csv("data/lyrics_all.csv"),
     d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
 ];
 
