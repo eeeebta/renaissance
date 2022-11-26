@@ -365,6 +365,8 @@ class sampleVis{
             .range([0, vis.width - vis.margin.left - vis.margin.right])
         vis.y = d3.scaleLinear()
             .range([vis.height - vis.margin.top - vis.margin.bottom, 0])
+        vis.y_bar = d3.scaleLinear()
+            .range([0, vis.height - vis.margin.top - vis.margin.bottom])
 
         // init axes
         vis.xAxis = d3.axisBottom()
@@ -451,8 +453,9 @@ class sampleVis{
         let vis = this;
 
         // add domain to axes
-        vis.x.domain([1972, 2020]);
-        vis.y.domain(d3.extent(vis.samplesPerYear));
+        vis.x.domain([1970, 2021]);
+        vis.y.domain([0, d3.max(vis.samplesPerYear)]);
+        vis.y_bar.domain([0, d3.max(vis.samplesPerYear)])
 
         // call axis functions
         vis.svg.select(".x-axis").call(vis.xAxis);
@@ -465,11 +468,11 @@ class sampleVis{
         bars.enter().append("rect")
             .attr("class", "bar")
             .merge(bars)
-            .attr("width", 10)
+            .attr("width", 18)
             .attr("fill", "white")
-            .attr("height", (d, i) => console.log(d))
-            .attr("x", (d, i) => vis.x(1972 + i))
-            .attr("y", vis.height / 2)
+            .attr("height", d => vis.y_bar(d))
+            .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 9)
+            .attr("y", d => vis.height - vis.y_bar(d) - vis.margin.bottom)
 
     }
 
