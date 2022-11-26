@@ -123,3 +123,30 @@
     float: left;
     padding: 10px;
 }
+.album_container{
+    margin: auto;
+    width: 250px;
+    height:250px;
+    border: 1px solid #DCA54C;
+    padding: 10px;
+}
+#album_cover{
+    margin:auto;
+    width:200px;
+    height:200px;
+}
+
+.subtext{
+    text-align: center;
+}
+
+#container__left{
+    height: 70vh;
+    width: 115vh;
+    float:left;
+}
+#container__right{
+    height: 70vh;
+    width: 35vh;
+    float:right
+}

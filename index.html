@@ -22,19 +22,52 @@
                     <div class="subsection-title" style="width: 100%; height: 8vh">
                         <h3>Renaissance Streams Worldwide</h3>
                     </div>
-                    <div id="spotifyVisGlobe_div" style="width:150vh; height:70vh"></div>
+                    <div id="container__left">
+                        <div id="spotifyVisGlobe_div" style="width:150vh; height:70vh"></div>
+                    </div>
+                    <div id="container__right">
+                        <div id="spotifyVisGlobetooltip_div" style="width:60vh; height:70vh; margin-bottom:20px">
+                            <h1 id="selectionTitle"></h1>
+                            <h1 id="selectionViews"></h1>
+                            <h1 id="selectionMost"></h1>
+                        </div>
+                    </div>
                     <div class="subsection-title">
-                        <h2> Renaissance Streams by song</h2>
+                        <h2> Click to explore the songs</h2>
                     </div>
-                    <div class="float-container" style="width:150vh; height:100vh">
-                        <div class="float-child1" id="spotifyVisBar_div"></div>
-                        <div class="float-child2" id="spotifyVisGraph_div" style="background:red"></div>
+                    <div class="test" onclick='test()'>
+                        <div class="album_container">
+                            <img id=album_cover src="assets/images/album_cover.jpg" alt="Renaissance album cover">
+                            <h2 class="subtext">Total streams: 2.1 billion</h2>
+                        </div>
+                        <div id="songsDist" style="width:150vh; height:30vh;"></div>
+                        <div style="height:5vh"></div>
+                        <div id="dailyGraph" style="width:150vh; height:50vh;"></div>
+
+
                     </div>
+
 
                 </div>
                 <div class="section-hanna">
-                    <div id="musicVis_div" style="width: 50vh; height:70vh">
-                    </div>
+                            <div class="circleMusicVis">
+                                <div class="musicVis_title" style="width: 100%; height: 8vh">
+                                    <h1>Musical Data Analysis</h1>
+                                </div>
+                                <div class="musicVis_narrator" style="width: 100%; height: 15vh">
+                                    <p id="musicVis_narrative_text"></p>
+                                </div>
+                                <div id="musicVis_div" style="width: 100%; height: 85vh">
+                                </div>
+                                <div class="musicVis_progressionDiv" style="width: 100%; height: 5vh">
+                                    <button class="button" id="button_prev" onclick=myMusicVis.buttonPrev()>Previous</button>
+                                    <button class="button" id="button_next" onclick=myMusicVis.buttonNext()>Next</button>
+                                </div>
+                            </div>
+                            <div class="sampleMusicVis">
+                                <div id="sampleVis_div" style="width: 100%; height: 85vh">
+                                </div>
+                            </div>
                 </div>
                 <div class="section-ibta">
                     <div class="form-control w-full max-w-xs">
@@ -68,6 +101,10 @@
         <script src="js/george.js"></script>
         <script src="js/hanna.js"></script>
         <script src="js/ibta.js"></script>
+        <script src="js/barChart.js"></script>
+        <script src="js/globe.js"></script>
+
+
 
         <!-- tailwind css -->
         <script src="https://cdn.tailwindcss.com"></script>

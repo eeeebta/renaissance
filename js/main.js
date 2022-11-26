@@ -1,6 +1,8 @@
 // year parser
 let parseYear = d3.timeParse("%Y");
 
+let chartInit = false;
+
 // load all data using promises
 let promises = [
     d3.csv("data/music_data.csv"),
@@ -37,11 +39,10 @@ function init_musical(allDataArray) {
 function init_spotify(allDataArray) {
     // construct spotify vis
     let data = cleanSpotifyData(allDataArray[3]);
-    mySpotifyVisGlobe = new spotifyVisGlobe("spotifyVisGlobe_div", data, allDataArray[5]);
-    mySpotifyVisBar = new spotifyVisBar("spotifyVisBar_div", data);
-    mySpotifyVisGraph = new spotifyVisGraph("spotifyVisGraph_div", data);
-
+    spotifyDriver(data, allDataArray[5]);
 }
+
+
 
 // narrative data visualization initialization
 function init_narrative(allDataArray) {
