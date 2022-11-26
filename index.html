@@ -47,7 +47,6 @@
 
                     </div>
 
-
                 </div>
                 <div class="section-hanna">
                             <div class="circleMusicVis">
@@ -69,6 +68,11 @@
                                 </div>
                             </div>
                 </div>
+                <div class="intro">
+                    <div class="intro_title" style="width: 100%; height: 8vh">
+                        <h1>A Subjective and (Brief) Narrative Analysis</h1>
+                    </div>
+                </div>
                 <div class="section-ibta">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
@@ -85,12 +89,43 @@
                             <option value="valence">Valence</option>
                         </select>
                     </div>
-                    <div id="narrativeVis_div" style="width: 100vh; height:70vh">
+                    <div id="narrativeVis_div" style="width: 100vh; height:90vh">
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Choose a song!</span>
+                        </label>
+                        <select class="select select-bordered" id="filterSong">
+                            <option selected value="I'M THAT GIRL">I'M THAT GIRL</option>
+                            <option value="COZY">COZY</option>
+                            <option value="ALIEN SUPERSTAR">ALIEN SUPERSTAR</option>
+                            <option value="CUFF IT">CUFF IT</option>
+                            <option value="ENERGY">ENERGY</option>
+                            <option value="BREAK MY SOUL">BREAK MY SOUL</option>
+                            <option value="CHURCH GIRL">CHURCH GIRL</option>
+                            <option value="PLASTIC OFF THE SOFA">PLASTIC OFF THE SOFA</option>
+                            <option value="VIRGO'S GROOVE">VIRGO'S GROOVE</option>
+                            <option value="MOVE">MOVE</option>
+                            <option value="HEATED">HEATED</option>
+                            <option value="THIQUE">THIQUE</option>
+                            <option value="ALL UP IN YOUR MIND">ALL UP IN YOUR MIND</option>
+                            <option value="AMERICA HAS A PROBLEM">AMERICA HAS A PROBLEM</option>
+                            <option value="PURE/HONEY">PURE/HONEY</option>
+                            <option value="SUMMER RENAISSANCE">SUMMER RENAISSANCE</option>
+                        </select>
+                        <h3>thank you genius for providing this data</h3>
+                    </div>
+                    <div id="lyricVis_div">
+                        <div class="grid grid-cols-3">
+                            <br>
+                            <div id="lyrics-view" class="col-auto"></div>
+                            <div id="song-desc" class="col-auto">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <!-- d3 library-->
         <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -105,6 +140,8 @@
         <script src="js/globe.js"></script>
 
 
+        <!-- Genius dependency -->
+        <script src="https://genius.codes"></script>
 
         <!-- tailwind css -->
         <script src="https://cdn.tailwindcss.com"></script>

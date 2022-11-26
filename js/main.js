@@ -17,7 +17,7 @@ Promise.all(promises)
     .then(function (data) {
         init_musical(data);
         init_spotify(data);
-        //init_narrative(data);
+        init_narrative(data);
     })
     .catch(function(err){ console.log(err) });
 

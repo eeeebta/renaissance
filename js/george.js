@@ -10,9 +10,8 @@ function spotifyDriver(data, geoData){
     cleanedData = data
     //dailyData(data)
     mySpotifyVisGlobe = new spotifyVisGlobe("spotifyVisGlobe_div", data, geoData);
-    mySpotifyVisBar = new spotifyVisBar("spotifyVisBar_div", data);
+    //mySpotifyVisBar = new spotifyVisBar("spotifyVisBar_div", data);
     mySpotifyVisGraph = new spotifyVisGraph("spotifyVisGraph_div", data);
-
 }
 
 // groups data by song and day

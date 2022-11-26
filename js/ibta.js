@@ -1,5 +1,6 @@
 class narrativeVis {
     constructor(parentElement, data) {
+        console.log("hdashdsa")
         this.parentElement = parentElement;
         this.data = data;
         this.songNames = [];
@@ -27,7 +28,6 @@ class narrativeVis {
     initVis() {
         let vis = this;
 
-        
 
         // init margins and height
         vis.margin = globalMargin;
