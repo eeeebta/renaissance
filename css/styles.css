@@ -18,9 +18,13 @@
     padding-right: 20%;
 }
 
+#musicVis_narrative_text {
+    font-size: 22px;
+}
+
 .musicVis_progressionDiv {
-    padding-left: 10vh;
-    padding-right: 10vh;
+    padding-left: 50vh;
+    padding-right: 50vh;
 }
 
 .button {
@@ -41,6 +45,19 @@
     font-family: EB Garamond;
     font-size: 18px;
     font-weight: bold;
+}
+
+.circleMusicVis {
+    padding-bottom: 20vh;
+}
+
+.sample_intro {
+    font-size: 24px;
+    font-family: "Grenze Gotisch";
+}
+
+.sampleMusicVis {
+    margin-left: 15%;
 }
 
 .tooltip {

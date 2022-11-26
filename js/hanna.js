@@ -165,25 +165,29 @@ class musicVis {
         // append paths & make array of centroid locations
         vis.arcs.enter()
             .append("path")
+            .attr("class", "circle_arc")
             .attr("d", vis.arc)
-            .style("fill", (d, i) => vis.colorScale(i))
+            .style("fill", "#f8b9e4")
+            .attr("stroke-width", "3px")
+            .attr("stroke", "white")
             .on("mouseover", function(event, d) {
                 if (vis.slideNo > 1) {
                     d3.select(this)
-                        .attr("stroke-width", "2px")
-                        .attr("stroke", "black")
+                        .style("fill", "#adcbfe")
 
                     d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
                         .text(d => d.key_minor)
                 }
             })
             .on("mouseout", function(event, d) {
-                d3.select(this)
-                    .attr("stroke-width", "0px")
+                if (vis.slideNo > 1) {
+                    d3.select(this)
+                        .style("fill", "#f8b9e4")
 
-                d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
-                    .text(d => d.key_major)
-                    .attr("class", "key_labels")
+                    d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
+                        .text(d => d.key_major)
+                        .attr("class", "key_labels")
+                }
             })
 
         // append key labels @ centroid coordinates
@@ -197,7 +201,7 @@ class musicVis {
             .attr("text-anchor", "middle")
             .attr("font-size", 12)
             .attr("transform", (d, i) => {
-                return "translate(" + (1.7 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.7 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
+                return "translate(" + (1.65 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.65 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
             })
 
         // call path and dot functions
@@ -474,10 +478,10 @@ class sampleVis{
         bars.enter().append("rect")
             .attr("class", "bar")
             .merge(bars)
-            .attr("width", 18)
+            .attr("width", 14)
             .attr("fill", "white")
             .attr("height", d => vis.y_bar(d))
-            .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 9)
+            .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 7)
             .attr("y", d => vis.height - vis.y_bar(d) - vis.margin.bottom)
 
     }
