@@ -132,7 +132,7 @@ class musicVis {
             case 1:
                 vis.narrativeText = "This is the circle of fifths. It's used in music to represent " +
                     "the relationships between keys, It's built by starting at middle C (top slice) " +
-                    "and moving up a fifth interval as you move clockwise around the circle.";
+                    "and moving up a fifth interval as you move clockwise around the circle. Click 'Next' to continue.";
                 break;
             case 2:
                 vis.narrativeText = "Each major key on the circle has a minor counterpart. " +
@@ -151,7 +151,7 @@ class musicVis {
             case 5:
                 vis.narrativeText = "RENAISSANCE begins in the rarely-used key of C minor and journeys " +
                     "to many other keys, some more than others, but ends up in the key of C major, " +
-                    "the most stable and familiar key signature in Western music."
+                    "the most stable and familiar key signature in Western music. (FIN)"
                 break;
         }
 
@@ -200,10 +200,8 @@ class musicVis {
                 return "translate(" + (1.7 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.7 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
             })
 
-        if (vis.slideNo > 3) {
-            vis.showPaths();
-        }
-
+        // call path and dot functions
+        vis.showPaths();
         vis.showHideDots();
 
     }
@@ -214,17 +212,19 @@ class musicVis {
         if (vis.slideNo > 1 && vis.slideNo <= 5) {
             vis.slideNo -= 1;
         }
+
+        console.log(vis.slideNo)
         vis.updateVis();
     }
 
     buttonNext() {
         let vis = this;
 
-        console.log(vis.slideNo)
-
         if (vis.slideNo >= 1 && vis.slideNo < 5) {
             vis.slideNo += 1;
         }
+
+        console.log(vis.slideNo)
         vis.updateVis();
     }
 
@@ -237,7 +237,7 @@ class musicVis {
 
         if (vis.slideNo < 3) {
             vis.dots = vis.songDotGroup.selectAll(".dots")
-            vis.dots .remove();
+            vis.dots.remove();
         }
         else if (vis.slideNo >= 3) {
             vis.songDots.enter()
@@ -299,29 +299,35 @@ class musicVis {
             [-120, -280, 0, -310]
         ]
 
-        vis.transitionPaths = vis.songDotGroup.selectAll(".transitionPaths")
+        vis.transitionPaths = vis.songLineGroup.selectAll(".transitionPaths")
             .data(vis.songData);
 
-        vis.transitionPaths.enter()
-            .append("path")
-            .attr("class", "transitionPaths")
-            .attr("fill", "none")
-            .attr("stroke", "black")
-            .style("stroke-dasharray", d => {
-                if (d.smooth_transition === true){
-                    return ("0, 0");
-                }
-                else {
-                    return ("3, 3");
-                }
-            })
-            .attr("d" , (d, i) => {
-                if (i < 15) {
-                    return (`M ${vis.songCoords[i].x_coord}, ${vis.songCoords[i].y_coord} `
+        if (vis.slideNo < 4) {
+            vis.transitions = vis.songLineGroup.selectAll(".transitionPaths")
+            vis.transitions.remove();
+        }
+        else if (vis.slideNo >= 4) {
+            vis.transitionPaths.enter()
+                .append("path")
+                .attr("class", "transitionPaths")
+                .attr("fill", "none")
+                .attr("stroke", "black")
+                .style("stroke-dasharray", d => {
+                    if (d.smooth_transition === true){
+                        return ("0, 0");
+                    }
+                    else {
+                        return ("3, 3");
+                    }
+                })
+                .attr("d" , (d, i) => {
+                    if (i < 15) {
+                        return (`M ${vis.songCoords[i].x_coord}, ${vis.songCoords[i].y_coord} `
                             + `C ${vis.bezierControls[i][0]} ${vis.bezierControls[i][1]}  ${vis.bezierControls[i][2]} ${vis.bezierControls[i][3]} `
                             +`${vis.songCoords[i + 1].x_coord}, ${vis.songCoords[i + 1].y_coord}`);
-                }
-            })
+                    }
+                })
+        }
 
     }
 }

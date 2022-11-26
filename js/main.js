@@ -31,8 +31,8 @@ function init_musical(allDataArray) {
     //console.log(allDataArray);
 
     // construct music vis
-    let myMusicVis = new musicVis("musicVis_div", allDataArray[0], allDataArray[1]);
-    let mySampleVis = new sampleVis("sampleVis_div", allDataArray[0]);
+    myMusicVis = new musicVis("musicVis_div", allDataArray[0], allDataArray[1]);
+    mySampleVis = new sampleVis("sampleVis_div", allDataArray[0]);
 }
 
 // spotify data visualization initialization
