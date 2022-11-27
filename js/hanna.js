@@ -498,7 +498,7 @@ class sampleVis{
             .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 7)
             .attr("y", d => vis.height - vis.y_bar(d[1]) - vis.margin.bottom)
             .on("mouseover", (event, d) => {
-                let samples = d[2][0];
+                let samples = d[2];
 
                 // TO-DO
                 // have samples.forEach add to the inner HTML of the div
@@ -508,11 +508,20 @@ class sampleVis{
                     .style("left", event.layerX - 170 + "px")
                     .style("top", event.layerY + 30 + "px")
                     .html(`
-                <div style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
-                    <h3 class="song_title">${samples.sample}</h3>
-                    <h4 class="song_info">Year: ${samples.year}</h4>
-                    <h4 class="song_info">Genre: ${samples.genre}</h4>
+                <div id="sample_tooltip" style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
+                  
                 </div>`);
+
+                let tooltipHTML = ``;
+                samples.forEach(d => {
+                    tooltipHTML = tooltipHTML +
+                        `<h3 className='song_title'>${d.sample}</h3>`
+                        + `<h4 className='song_info'>Year: ${d.year}</h4>`
+                        + `<h4 className='song_info'>Genre: ${d.genre}</h4>`;
+                })
+                document.getElementById("sample_tooltip").innerHTML = tooltipHTML;
+
+
             })
             .on("mouseout", (event, d) => {
                 vis.tooltip
