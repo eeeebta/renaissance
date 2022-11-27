@@ -1,17 +1,17 @@
 track_number,Song_title,bpm,key,length,smooth_transition,genre(s),sample_1,sample_1_year,sample_1_genre,sample_2,sample_2_year,sample_2_genre,sample_3,sample_3_year,sample_3_genre,sample_4,sample_4_year,sample_4_genre
-1,I'M THAT GIRL,106,C minor,3:28,TRUE,"hip hop, minimal house",Tommy Wright III feat. Princess Loko – "Still Pimpin",1995,"hip hop, rap",,,,,,,,,
-2,COZY,112,G minor,3:30,TRUE,90's house,Lidell Townsell & M.T.F – "Get With U",1992,house,Danube Dance feat. Kim Cooper - ""Unique"",1996,house,"TS Madison - ""Bitch I'm Black""",2020,spoken word,,,
-3,ALIEN SUPERSTAR,124,C minor,3:35,FALSE,dancefloor house,Foremost Poets – "Moonraker",2008,techno,Right Said Fred - "I'm Too Sexy",1992,"house, dance pop",Danube Dance feat. Kim Cooper - ""Unique"",1996,house,,,
+1,I'M THAT GIRL,106,C minor,3:28,TRUE,"hip hop, minimal house",Tommy Wright III feat. Princess Loko – "Still Pimpin",1995,"Hip Hop, Rap",,,,,,,,,
+2,COZY,112,G minor,3:30,TRUE,90's house,Lidell Townsell & M.T.F – "Get With U",1992,House,Danube Dance feat. Kim Cooper - ""Unique"",1996,House,"TS Madison - ""Bitch I'm Black""",2020,Spoken Word,,,
+3,ALIEN SUPERSTAR,124,C minor,3:35,FALSE,dancefloor house,Foremost Poets – "Moonraker",2008,Techno,Right Said Fred - "I'm Too Sexy",1992,"House, Dance Pop",Danube Dance feat. Kim Cooper - ""Unique"",1996,House,,,
 4,CUFF IT,115,E minor,3:45,TRUE,disco,Teena Marie – "Ooh La La La",1988,Soul,,,,,,,,,
-5,ENERGY (feat. Beam),115,G major,1:56,TRUE,tropical house,"Big Freedia – ""Explode""",2014,hip hop,,,,,,,,,
-6,BREAK MY SOUL,115,G# minor,4:38,FALSE,"euro house, diva house",Robin S – "Show Me Love",1993,house,Big Freedia – "Explode",2014,hip hop,,,,,,
-7,CHURCH GIRL,92,B minor,3:44,FALSE,"R&B, Chicago hip-hop",The Clark Sisters – "Center Thy Will",1981,gospel,"DJ Jimi - ""Where They At""",1992,"hip hop, rap, R&B","Lyn Collins - ""Think (About It)""",1972,funk,"The Showboys - ""Drag Rap (Triggerman)""",1986,hip hop
+5,ENERGY (feat. Beam),115,G major,1:56,TRUE,tropical house,"Big Freedia – ""Explode""",2014,Hip Hop,,,,,,,,,
+6,BREAK MY SOUL,115,G# minor,4:38,FALSE,"euro house, diva house",Robin S – "Show Me Love",1993,House,Big Freedia – "Explode",2014,Hip Hop,,,,,,
+7,CHURCH GIRL,92,B minor,3:44,FALSE,"R&B, Chicago hip-hop",The Clark Sisters – "Center Thy Will",1981,Gospel,"DJ Jimi - ""Where They At""",1992,"Hip Hop, Rap, R&B","Lyn Collins - ""Think (About It)""",1972,Funk,"The Showboys - ""Drag Rap (Triggerman)""",1986,Hip Hop
 8,PLASTIC OFF THE SOFA,97,F# major,4:14,TRUE,disco,,,,,,,,,,,,
 9,VIRGO'S GROOVE,108,E minor,6:08,FALSE,disco,,,,,,,,,,,,
 10,MOVE (feat. Grace Jones & Tems),118,Db minor,3:23,FALSE,synthpop,,,,,,,,,,,,
 11,HEATED,111,Bb minor,4:20,FALSE,"afrobeat, chill house",,,,,,,,,,,,
 12,THIQUE,129,G minor,4:04,TRUE,"hip hop, trap",,,,,,,,,,,,
 13,ALL UP IN YOUR MIND,136,A minor,2:49,FALSE,synthpop,,,,,,,,,,,,
-14,AMERICA HAS A PROBLEM,126,Db minor,3:18,TRUE,miami bass,Kilo Ali – "Cocaine (America Has a Problem)"",1990,"hip hop, rap, R&B",,,,,,,,,
-15,PURE/HONEY,124,G minor,4:48,FALSE,ballroom,"Moi Renee - ""Miss Honey""",1992,garage house,"Kevin Aviance - ""Cunty (Wave Edit)""",1999,house,"MikeQ feat. Kevin JZ Prodigy - ""Feels Like""",2011,jersey club,"Mr. Fingers - ""Mystery of Love""",1985,deep house
-16,SUMMER RENAISSANCE,120,C major,4:33,FALSE,disco house,"Donna Summer - ""I Feel Love""",1977,disco,,,,,,,,,
+14,AMERICA HAS A PROBLEM,126,Db minor,3:18,TRUE,miami bass,Kilo Ali – "Cocaine (America Has a Problem)"",1990,"Hip Hop, Rap, R&B",,,,,,,,,
+15,PURE/HONEY,124,G minor,4:48,FALSE,ballroom,"Moi Renee - ""Miss Honey""",1992,Garage House,"Kevin Aviance - ""Cunty (Wave Edit)""",1999,House,"MikeQ feat. Kevin JZ Prodigy - ""Feels Like""",2011,Jersey Club,"Mr. Fingers - ""Mystery of Love""",1985,Deep House
+16,SUMMER RENAISSANCE,120,C major,4:33,FALSE,disco house,"Donna Summer - ""I Feel Love""",1977,Disco,,,,,,,,,

@@ -12,8 +12,6 @@ class musicVis {
         // data for circle of fifths pie chart
         this.pieData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-        //console.log("musical data: " , this.songData);
-
         this.initVis()
     }
 
@@ -94,7 +92,6 @@ class musicVis {
                 centroid_loc: vis.arc.centroid(d)}
             )
         })
-        //console.log("key-centroid pairs", vis.keyCentroids);
 
         // append key id to song data structure
         vis.songData.forEach(d => {
@@ -117,7 +114,6 @@ class musicVis {
                 y_coord: trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]}
             )
         })
-        //console.log(vis.songCoords);
 
         this.updateVis();
     }
@@ -258,11 +254,11 @@ class musicVis {
                     vis.tooltip
                         .style("opacity", 1)
                         .style("left", event.layerX + 20 + "px")
-                        .style("top", event.layerY + 10 + "px")
+                        .style("top", event.layerY + 50 + "px")
                         .html(`
                         <div style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
                             <h3 class="song_title">${d.Song_title}</h3>
-                            <h4 class="song_info">key: ${d.key}</h4>
+                            <h4 class="song_info">Key: ${d.key}</h4>
                             <h4 class="song_info">BPM: ${d.bpm}</h4>
                             <h4 class="song_info">Length: ${d.length}</h4>
                         </div>`);
@@ -300,18 +296,14 @@ class musicVis {
             [70, 320, -450, 250],
             [-120, -280, 0, -310]
         ]
-        console.log(vis.bezierControls);
 
         vis.scaledBezier = vis.bezierControls.map(array => {
             let scaledArray = array.map(n => {
                 n = n * 0.8;
                 return n;
             })
-            console.log(array);
             return scaledArray;
         });
-
-        console.log(vis.scaledBezier);
 
         vis.transitionPaths = vis.songLineGroup.selectAll(".transitionPaths")
             .data(vis.songData);
@@ -405,65 +397,77 @@ class sampleVis{
             .attr("class", "y-axis axis")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
+        // init tooltips
+        vis.tooltip = d3.select("#sampleVis_div")
+            .append("div")
+            .attr("class", "tooltip")
+
         vis.wrangleData();
     }
 
     wrangleData() {
         let vis = this;
 
-        // create array of unique sample
-        vis.sampleData = [];
+        // create array of unique samples
+        vis.sampleSongData = [];
         vis.songData.forEach(d => {
             if (d.sample_1 != ""){
-                if (!vis.alreadyPushed(d.sample_1, vis.sampleData)) {
-                    vis.sampleData.push(
+                if (!vis.alreadyPushed(d.sample_1, vis.sampleSongData)) {
+                    vis.sampleSongData.push(
                         {sample: d.sample_1,
-                            year: +d.sample_1_year}
+                            year: +d.sample_1_year,
+                            genre: d.sample_1_genre}
                     )
                 }
             }
             if (d.sample_2 != ""){
-                if (!vis.alreadyPushed(d.sample_2, vis.sampleData)) {
-                    vis.sampleData.push(
+                if (!vis.alreadyPushed(d.sample_2, vis.sampleSongData)) {
+                    vis.sampleSongData.push(
                         {sample: d.sample_2,
-                            year: +d.sample_2_year}
+                            year: +d.sample_2_year,
+                            genre: d.sample_2_genre}
                     )
                 }
             }
             if (d.sample_3 != ""){
-                if (!vis.alreadyPushed(d.sample_3, vis.sampleData)) {
-                    vis.sampleData.push(
+                if (!vis.alreadyPushed(d.sample_3, vis.sampleSongData)) {
+                    vis.sampleSongData.push(
                         {sample: d.sample_3,
-                            year: +d.sample_3_year}
+                            year: +d.sample_3_year,
+                            genre: d.sample_3_genre}
                     )
                 }
             }
             if (d.sample_4 != ""){
-                if (!vis.alreadyPushed(d.sample_4, vis.sampleData)) {
-                    vis.sampleData.push(
+                if (!vis.alreadyPushed(d.sample_4, vis.sampleSongData)) {
+                    vis.sampleSongData.push(
                         {sample: d.sample_4,
-                            year: +d.sample_4_year}
+                            year: +d.sample_4_year,
+                            genre: d.sample_4_genre}
                     )
                 }
             }
         })
-        console.log(vis.sampleData);
+        console.log(vis.sampleSongData);
 
-        // aggregate # of samples based on their release year
-        vis.samplesPerYear = [];
-        vis.samplesPerYear = d3.range(1972, 2021).map(function() {
-            return 0;
+        // aggregate # of samples and samples based on their release year
+        vis.sampleData = [];
+        vis.sampleData = d3.range(1972, 2021).map((d, i) => {
+            return [d, 0, []];
         })
 
-        vis.sampleData.forEach((entry) => {
+
+        vis.sampleSongData.forEach((entry) => {
             d3.range(1972, 2021).forEach((y, i) => {
                 if (entry.year === y) {
-                    vis.samplesPerYear[i] += 1;
+                    vis.sampleData[i][1] += 1;
+                    vis.sampleData[i][2].push(entry);
                 }
             })
         })
+        console.log(vis.sampleData);
 
-        console.log(vis.samplesPerYear);
+
 
         vis.updateVis();
 
@@ -474,8 +478,8 @@ class sampleVis{
 
         // add domain to axes
         vis.x.domain([1970, 2021]);
-        vis.y.domain([0, d3.max(vis.samplesPerYear)]);
-        vis.y_bar.domain([0, d3.max(vis.samplesPerYear)])
+        vis.y.domain([0, 4]);
+        vis.y_bar.domain([0, 4])
 
         // call axis functions
         vis.svg.select(".x-axis").call(vis.xAxis);
@@ -483,23 +487,47 @@ class sampleVis{
 
         // draw bars
         let bars = vis.svg.selectAll(".bar")
-            .data(vis.samplesPerYear);
+            .data(vis.sampleData);
 
         bars.enter().append("rect")
             .attr("class", "bar")
             .merge(bars)
             .attr("width", 14)
             .attr("fill", "white")
-            .attr("height", d => vis.y_bar(d))
+            .attr("height", d => vis.y_bar(d[1]))
             .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 7)
-            .attr("y", d => vis.height - vis.y_bar(d) - vis.margin.bottom)
+            .attr("y", d => vis.height - vis.y_bar(d[1]) - vis.margin.bottom)
+            .on("mouseover", (event, d) => {
+                let samples = d[2][0];
+
+                // TO-DO
+                // have samples.forEach add to the inner HTML of the div
+
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.layerX - 170 + "px")
+                    .style("top", event.layerY + 30 + "px")
+                    .html(`
+                <div style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
+                    <h3 class="song_title">${samples.sample}</h3>
+                    <h4 class="song_info">Year: ${samples.year}</h4>
+                    <h4 class="song_info">Genre: ${samples.genre}</h4>
+                </div>`);
+            })
+            .on("mouseout", (event, d) => {
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
+            })
 
     }
 
     alreadyPushed(d, array) {
         let vis = this;
 
-        let exists = vis.sampleData.some(element => {
+        let exists = vis.sampleSongData.some(element => {
             return (element.sample === d)
         });
 
