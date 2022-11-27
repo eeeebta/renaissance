@@ -10,29 +10,31 @@
     </head>
     <body>
         <div>
-            <div class="container grid mx-auto px-auto">
-                <div class="intro">
-                    <div class="intro_title" style="width: 100%; height: 8vh">
-                        <h1> Exploring Renaissance</h1>
-                    </div>
-                </div>
-                <div class="section-george">
-                    <div class="section_title" style="width: 100%; height: 8vh">
-                        <h1>Boiler text about the effect of renaissance</h1>
-                    </div>
-                    <div class="subsection-title" style="width: 100%; height: 8vh">
-                        <h3>Renaissance Streams Worldwide</h3>
-                    </div>
-                    <div id="container__left">
-                        <div id="spotifyVisGlobe_div" style="width:150vh; height:70vh"></div>
-                    </div>
-                    <div id="container__right">
-                        <div id="spotifyVisGlobetooltip_div" style="width:60vh; height:70vh; margin-bottom:20px">
-                            <h1 id="selectionTitle"></h1>
-                            <h1 id="selectionViews"></h1>
-                            <h1 id="selectionMost"></h1>
+            <div id="fullpage" class="container grid mx-auto px-auto">
+                <div class="section">
+                    <div class="intro">
+                        <div class="intro_title" style="width: 100%">
+                            <h1> Exploring Renaissance</h1>
+                        </div>
+                        <div class="section_title" style="width: 100%">
+                            <h1>Boiler text about the effect of renaissance</h1>
+                        </div>
+                        <div class="subsection-title" style="width: 100%">
+                            <h3>Renaissance Streams Worldwide</h3>
+                        </div>
+                        <div id="container__left">
+                            <div id="spotifyVisGlobe_div" style="width:150vh; height:50vh"></div>
+                        </div>
+                        <div id="container__right">
+                            <div id="spotifyVisGlobetooltip_div" style="width:60vh; height:60vh; margin-bottom:20px">
+                                <h1 id="selectionTitle"></h1>
+                                <h1 id="selectionViews"></h1>
+                                <h1 id="selectionMost"></h1>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="section">
                     <div class="subsection-title">
                         <h2> Click to explore the songs</h2>
                     </div>
@@ -44,39 +46,38 @@
                         <div id="songsDist" style="width:150vh; height:30vh;"></div>
                         <div style="height:5vh"></div>
                         <div id="dailyGraph" style="width:150vh; height:50vh;"></div>
-
-
-                    </div>
-
-                </div>
-                <div class="section-hanna">
-                            <div class="circleMusicVis">
-                                <div class="musicVis_title" style="width: 100%; height: 8vh">
-                                    <h1>Musical Data Analysis</h1>
-                                </div>
-                                <div class="musicVis_narrator" style="width: 100%; height: 15vh">
-                                    <p id="musicVis_narrative_text"></p>
-                                </div>
-                                <div id="musicVis_div" style="width: 100%; height: 85vh">
-                                </div>
-                                <div class="musicVis_progressionDiv" style="width: 100%; height: 5vh">
-                                    <button class="button" id="button_prev" onclick=myMusicVis.buttonPrev()>Previous</button>
-                                    <button class="button" id="button_next" onclick=myMusicVis.buttonNext()>Next</button>
-                                </div>
-                            </div>
-                            <div class="sampleMusicVis">
-                                <h2 class="sample_intro">RENAISSANCE samples music from a wide variety of genres and musical eras.</h2>
-                                <h2 class="sample_intro">Hover each bar to learn more about the samples from that year.</h2>
-                                <div id="sampleVis_div" style="width: 85%; height: 50vh">
-                                </div>
-                            </div>
-                </div>
-                <div class="intro">
-                    <div class="intro_title" style="width: 100%; height: 8vh">
-                        <h1>A Subjective and (Brief) Narrative Analysis</h1>
                     </div>
                 </div>
-                <div class="section-ibta">
+                <div class="section">
+                    <div class="circleMusicVis">
+                        <div class="musicVis_title" style="width: 100%">
+                            <h1>Musical Data Analysis</h1>
+                        </div>
+                        <div class="musicVis_narrator" style="width: 100%">
+                            <p id="musicVis_narrative_text"></p>
+                        </div>
+                        <div id="musicVis_div" style="width: 100%; height: 50vh">
+                        </div>
+                        <div class="musicVis_progressionDiv" style="width: 100%; height: 5vh">
+                            <button class="button" id="button_prev" onclick=myMusicVis.buttonPrev()>Previous</button>
+                            <button class="button" id="button_next" onclick=myMusicVis.buttonNext()>Next</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="sampleMusicVis">
+                        <h2 class="sample_intro">RENAISSANCE samples music from a wide variety of genres and musical eras.</h2>
+                        <h2 class="sample_intro">Hover each bar to learn more about the samples from that year.</h2>
+                        <div id="sampleVis_div" style="width: 85%; height: 50vh">
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="intro">
+                        <div class="intro_title" style="width: 100%; height: 8vh">
+                            <h1>A Subjective and (Brief) Narrative Analysis</h1>
+                        </div>
+                    </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
                             <span class="label-text">Choose a filter!</span>
@@ -92,8 +93,9 @@
                             <option value="valence">Valence</option>
                         </select>
                     </div>
-                    <div id="narrativeVis_div" style="width: 100vh; height:90vh">
-                    </div>
+                    <div id="narrativeVis_div" style="width: 100vh; height:90vh"></div>
+                </div>
+                <div class="section">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
                             <span class="label-text">Choose a song!</span>
@@ -122,12 +124,11 @@
                         <div class="grid grid-cols-3">
                             <br>
                             <div id="lyrics-view" class="col-auto"></div>
-                            <div id="song-desc" class="col-auto">
-
-                            </div>
+                            <div id="song-desc" class="col-auto"></div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- d3 library-->
@@ -136,6 +137,15 @@
 
         <!-- fullPage.js -->
         <script src="js/fullpage.min.js"></script>
+
+        <script>
+            new fullpage('#fullpage', {
+                //options here
+                autoScrolling:true,
+                scrollHorizontally: true
+            });
+        </script>
+        
 
         <!-- our js -->
         <script src="js/main.js"></script>
