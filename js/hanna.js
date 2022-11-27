@@ -73,7 +73,7 @@ class musicVis {
 
 
         // append tooltip
-        vis.tooltip = d3.select(".section-hanna")
+        vis.tooltip = d3.select("#musicVis_div")
             .append("div")
             .attr("class", "tooltip")
 
@@ -217,7 +217,6 @@ class musicVis {
             vis.slideNo -= 1;
         }
 
-        console.log(vis.slideNo)
         vis.updateVis();
     }
 
@@ -228,7 +227,6 @@ class musicVis {
             vis.slideNo += 1;
         }
 
-        console.log(vis.slideNo)
         vis.updateVis();
     }
 
@@ -247,7 +245,7 @@ class musicVis {
             vis.songDots.enter()
                 .append("circle")
                 .attr("class", "dots")
-                .attr("r", "0.7vh")
+                .attr("r", "0.9vh")
                 .attr("transform", (d) => {
                     let trackScale = d.track_number * 0.1;
                     return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
@@ -259,10 +257,10 @@ class musicVis {
 
                     vis.tooltip
                         .style("opacity", 1)
-                        .style("left", event.pageX - 40 + "px")
-                        .style("top", -(1 * vis.height + 350) + (event.pageY) + "px")
+                        .style("left", event.layerX + 20 + "px")
+                        .style("top", event.layerY + 10 + "px")
                         .html(`
-                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 1vh">
+                        <div style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
                             <h3 class="song_title">${d.Song_title}</h3>
                             <h4 class="song_info">key: ${d.key}</h4>
                             <h4 class="song_info">BPM: ${d.bpm}</h4>
@@ -302,6 +300,18 @@ class musicVis {
             [70, 320, -450, 250],
             [-120, -280, 0, -310]
         ]
+        console.log(vis.bezierControls);
+
+        vis.scaledBezier = vis.bezierControls.map(array => {
+            let scaledArray = array.map(n => {
+                n = n * 0.8;
+                return n;
+            })
+            console.log(array);
+            return scaledArray;
+        });
+
+        console.log(vis.scaledBezier);
 
         vis.transitionPaths = vis.songLineGroup.selectAll(".transitionPaths")
             .data(vis.songData);
@@ -327,7 +337,7 @@ class musicVis {
                 .attr("d" , (d, i) => {
                     if (i < 15) {
                         return (`M ${vis.songCoords[i].x_coord}, ${vis.songCoords[i].y_coord} `
-                            + `C ${vis.bezierControls[i][0]} ${vis.bezierControls[i][1]}  ${vis.bezierControls[i][2]} ${vis.bezierControls[i][3]} `
+                            + `C ${vis.scaledBezier[i][0]} ${vis.scaledBezier[i][1]}  ${vis.scaledBezier[i][2]} ${vis.scaledBezier[i][3]} `
                             +`${vis.songCoords[i + 1].x_coord}, ${vis.songCoords[i + 1].y_coord}`);
                     }
                 })
