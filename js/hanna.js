@@ -195,7 +195,6 @@ class musicVis {
             .attr("id", d => "keyID_" + d.keysig_id)
             .text(d => d.key_major)
             .attr("text-anchor", "middle")
-            .attr("font-size", 12)
             .attr("transform", (d, i) => {
                 return "translate(" + (1.65 * vis.keyCentroids[i].centroid_loc[0]) + ", " + (1.65 * vis.keyCentroids[i].centroid_loc[1]) + ") rotate(15)"
             })
