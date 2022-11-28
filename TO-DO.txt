@@ -6,12 +6,15 @@ general
 
 george's visualizations
 - format tooltip (garamond, more centered)
+- add key of how many streams = one person
 
 ibta's visualizations
 - buggy graph
+- add tooltip to lyrics
 
 hanna's visualizations
 - fix tooltip placement
+- add in color progression for songs
 
 OTHER
 - video submission
