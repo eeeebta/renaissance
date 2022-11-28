@@ -69,7 +69,6 @@ class spotifyVisGlobe {
         vis.svg.call(
             d3.drag()
                 .on("start", function (event) {
-                    console.log('STARTED')
                     selectionDrag = true
                     let lastRotationParams = vis.projection.rotate();
                     m0 = [event.x, event.y];
@@ -79,7 +78,6 @@ class spotifyVisGlobe {
                     if (m0) {
                         let m1 = [event.x, event.y],
                             o1 = [o0[0] + (m0[0] - m1[0]) / 4, o0[1] + (m1[1] - m0[1]) / 4];
-                        console.log('CHANGED')
                         rotate[0] = -o1[0]
                         rotate[1] = -o1[1]
                         vis.projection.rotate([-o1[0], -o1[1]]);
@@ -91,7 +89,6 @@ class spotifyVisGlobe {
                     d3.selectAll(".graticule").attr("d", vis.path)
                 })
                 .on('end',function(event){
-                    console.log('ended at', event.x,event.y)
                     console.log(vis.projection)
                     //rotate[1] = event.x
                     //rotate[0] = event.y
@@ -103,8 +100,6 @@ class spotifyVisGlobe {
 
     wrangleData() {
         let vis = this;
-        console.log("Wrangling Spotify Data")
-
         // create data structure with information for each countri
         vis.country = {}
 
@@ -130,8 +125,6 @@ class spotifyVisGlobe {
 
     updateVis() {
         let vis = this;
-        console.log("Updating Globe")
-
         let keys = Object.keys(vis.displayData);
         // FIX THIS! change from dict to obj
         let max = 4000000,
@@ -175,9 +168,6 @@ class spotifyVisGlobe {
 
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
-
-                    console.log('here')
-                    console.log(vis.displayData[selectedCountry])
 
                     vis.tooltipTitle.text(d.properties.name)
                     vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
@@ -238,52 +228,3 @@ class spotifyVisGlobe {
         });
     }
 }
-
-// Epomeno feature
-// Tooltip on selection
-
-/*
-.on('mouseover', function(event, d){
-                let state = vis.displayData.find(o => o.state === d.properties.name);
-                // highlight selection
-                d3.select(this)
-                .attr('stroke-width', '2px')
-                .attr('stroke', 'black')
-                .style("fill", 'red')
-
-                // create tooltip
-                vis.tooltip
-                    .style("opacity", 1)
-                    .style("left", event.pageX + 20 + "px")
-                    .style("top", event.pageY + "px")
-                    .html(`
-             <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                 <h3>${state.state}<h3>
-                 <h4> Population: ${state.population}</h4>
-                 <h4> Cases (absolute): ${state.absCases}</h4>
-                 <h4> Deaths (absolute): ${state.absDeaths}</h4>
-                 <h4> Cases (relative): ${state.relCases.toFixed( 2 )}</h4>
-                 <h4> Cases (relativate): ${state.relDeaths.toFixed( 2 )}</h4>
-             </div>`);
-            })
-            .on('mouseout', function(event, d){
-                // revert to original color
-                d3.select(this)
-                    .attr('stroke-width', '1px')
-                    .style("stroke", "#000")
-                    //.attr("fill", d => d.data.color)
-                    .style("fill", function(d){
-                        let state = vis.displayData.find(o => o.state === d.properties.name);
-                        //console.log(state, d.properties.name)
-                        return vis.colorScale(state[vis.selection])
-                    })
-
-                    // remove tooltip
-                vis.tooltip
-                    .style("opacity", 0)
-                    .style("left", 0)
-                    .style("top", 0)
-                    .html(``);
-            });
-
- */

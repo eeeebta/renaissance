@@ -19,10 +19,13 @@ class BarVis {
         this.parentElement = parentElement;
         this.data = data;
         this.selection = songName
-        this.initData()
-        this.initVis()
+        //this.initData()
+        //this.initVis()
     }
 
+
+
+    /*
     initData() {
         let vis = this;
         let tracks = {};
@@ -89,7 +92,7 @@ class BarVis {
             .attr('id', 'barTooltip')
 
          */
-
+/*
         // Scales and axes
         // init scales
         vis.x = d3.scaleTime().range([0, vis.width]);
@@ -172,5 +175,5 @@ class BarVis {
     }
 }
 
-
+*/
 

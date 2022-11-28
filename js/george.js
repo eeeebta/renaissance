@@ -34,7 +34,21 @@ function dailyData(data) {
     dailyDatacleaned = tracks
 }
 
-function test(){
+function figureGraph() {
+    if(cleanedData === null || chartInit){
+        return
+    }
+    chartInit = true;
+    mySpotifyVisGlobe = new figures("songsDist", cleanedData);
+
+}
+
+
+
+
+
+    //OLD TEST
+    /*
     // do not create the graphs if the data have not been loaded
     if(cleanedData === null || chartInit){
         return
@@ -165,10 +179,10 @@ function test(){
             })
             .attr('font-size', '8px')
             .attr("fill", "#DCA54C");
-     */
+
 
 }
-
+*/
 function cleanSpotifyData(data) {
     console.log(data)
 
