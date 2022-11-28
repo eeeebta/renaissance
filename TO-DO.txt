@@ -1,0 +1,18 @@
+STUFF TO GET DONE BEFORE FINAL SUBMISSION
+
+general
+- title description
+- move formatting to CSS
+
+george's visualizations
+- format tooltip (garamond, more centered)
+
+ibta's visualizations
+- buggy graph
+
+hanna's visualizations
+- fix tooltip placement
+
+OTHER
+- video submission
+- testing feedback
