@@ -2,15 +2,19 @@
 .section_title {
     background-color: #333333;
     padding: 5vh;
+    border-radius: 10px;
 }
 
 #intro_image_overlay {
     font-family: "EB Garamond";
     font-size: 3vh;
     position: absolute;
-    top: 40%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+    width: 60%;
+    top: 37%;
+    left: 20%;
+    background-color: #333333;
+    padding: 5vh;
+    border-radius: 10px;
 }
 
 .subsection-explanation {
@@ -20,7 +24,9 @@
 }
 
 .intro {
+    padding: 3vh;
     background-color: #333333;
+    border-radius: 10px;
 }
 
 /*Hanna visualization stuff*/
