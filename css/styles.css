@@ -1,4 +1,9 @@
 /* MAIN PAGE STUFF */
+html, body {
+    background-color: black !important;
+    color: #DCA54C !important;
+}
+
 .section_title {
     background-color: #333333;
     padding: 5vh;
