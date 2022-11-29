@@ -49,14 +49,19 @@
                                 </h2>
                             </div>
                         </div>
-                        <div id="container__left">
-                            <div id="spotifyVisGlobe_div"></div>
-                        </div>
-                        <div id="container__right">
-                            <div id="spotifyVisGlobetooltip_div">
-                                <h1 id="selectionTitle"></h1>
-                                <h1 id="selectionViews"></h1>
-                                <h1 id="selectionMost"></h1>
+                        <div class="container__visualization">
+                            <div>
+                                <h3>Spotify TOP 200 streams on the first 30 days following the release</h3>
+                                <p>Click on a country to see the details</p>
+                            </div>
+                            <div class="container__left" id="spotifyVisGlobe_div">
+                            </div>
+                            <div class="container__right">
+                                <div id="spotifyVisGlobetooltip_div">
+                                    <h5 id="selectionTitle"></h5>
+                                    <h5 id="selectionViews"></h5>
+                                    <h5 id="selectionMost"></h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,16 +69,17 @@
                         <div class="subsection-title">
                             <h2> Click to explore the songs</h2>
                         </div>
-                        <div class="test" onclick=figureGraph()>
-                            <div class="album_container">
-                                <img id=album_cover src="assets/images/album_cover.jpg" alt="Renaissance album cover">
-                                <h2 class="subtext">Total streams: 2.1 billion</h2>
+                        <div class="container__visualization" >
+                            <div class="test" onclick=figureGraph()>
+                                <div class="album_container">
+                                    <img id=album_cover src="assets/images/album_cover.jpg" alt="Renaissance album cover">
+                                    <h2 class="subtext">Total streams: 2.1 billion</h2>
+                                </div>
+                                <div id="songsDist"></div>
                             </div>
-                            <div id="songsDist"></div>
                         </div>
                     </div>
                 </div>
-
                 <!-- Hanna -->
                 <div class="section fp-noscroll">
                     <div class="slide">

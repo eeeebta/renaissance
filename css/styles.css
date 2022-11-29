@@ -124,15 +124,6 @@ html, body {
 
 /* need to standardize formatting with variables for colors, check out next week*/
 
-
-
-
-
-.section-george{
-    margin:auto;
-}
-
-
 .intro_title {
     padding: 10px;
     /* adjust margin bottom */
@@ -153,28 +144,28 @@ html, body {
     font-family: Grenze Gotisch;
 }
 
-
-.spotifyVis_div{
-    margin:auto;
+/* parent container for all visualizations */
+.container__visualization{
+    overflow:auto;
+    padding:5vh;
 }
 
-.float-container {
-    padding: 20px;
+/* Container for globe vis */
+/* globe */
+.container__left{
+    height: 50vh;
+    width: 65vh;
+    float:left;
+    margin-bottom: 40px;
+}
+/* tooltip */
+.container__right{
+    height: 50vh;
+
+    width: 100vh;
+    float:right
 }
 
-.float-child1 {
-    width: 45%;
-    height: 100%;
-    float: left;
-    padding: 10px;
-}
-
-.float-child2 {
-    width: 55%;
-    height: 100%;
-    float: left;
-    padding: 10px;
-}
 .album_container{
     margin: auto;
     width: 250px;
@@ -184,25 +175,15 @@ html, body {
 }
 #album_cover{
     margin:auto;
-    width:200px;
-    height:200px;
+    width:100px;
+    height:100px;
 }
 
-.subtext{
-    text-align: center;
-}
-
-#container__left{
-    height: 70vh;
-    width: 115vh;
-    float:left;
-}
-#container__right{
-    height: 70vh;
-    width: 35vh;
-    float:right
-}
-.songsDist{
+#songsDist{
+    height:400vh;
     margin-left: 10px;
     margin-right:10px;
+}
+#test{
+    height:1000vh;
 }
