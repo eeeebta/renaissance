@@ -4,11 +4,6 @@ class musicVis {
         this.songData = songData;
         this.keyData = keyData;
 
-        // temporary color scheme (DELETE LATER)
-        this.colorScale = d3.scaleLinear()
-            .domain([0, 12])
-            .range(['pink', "purple"])
-
         // data for circle of fifths pie chart
         this.pieData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
@@ -20,7 +15,6 @@ class musicVis {
 
         // init global margin & color conventions
         vis.margin = globalMargin;
-        vis.colors = globalColors;
 
         // init height and width
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -77,6 +71,11 @@ class musicVis {
 
         // **** init slide progression stuff ****
         vis.slideNo = 1;
+
+        // define color scale
+        vis.colorScale = d3.scaleLinear()
+            .domain([0, vis.songData.length])
+            .range(["#ff77d3", "#84b1ff"])
 
         this.wrangleData()
     }
@@ -163,13 +162,13 @@ class musicVis {
             .append("path")
             .attr("class", "circle_arc")
             .attr("d", vis.arc)
-            .style("fill", "#f8b9e4")
+            .style("fill", "white")
             .attr("stroke-width", "3px")
-            .attr("stroke", "white")
+            .attr("stroke", "#CCCCCC")
             .on("mouseover", function(event, d) {
                 if (vis.slideNo > 1) {
                     d3.select(this)
-                        .style("fill", "#adcbfe")
+                        .style("fill", "#DDA54C")
 
                     d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
                         .text(d => d.key_minor)
@@ -178,7 +177,7 @@ class musicVis {
             .on("mouseout", function(event, d) {
                 if (vis.slideNo > 1) {
                     d3.select(this)
-                        .style("fill", "#f8b9e4")
+                        .style("fill", "white")
 
                     d3.selectAll(`#keyID_${vis.keyData[d.index].keysig_id}`)
                         .text(d => d.key_major)
@@ -245,17 +244,19 @@ class musicVis {
                     let trackScale = d.track_number * 0.1;
                     return "translate(" + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[0]) + ", " + (trackScale * vis.keyCentroids[d.keyID].centroid_loc[1]) + ")"
                 })
-                .attr("fill", "black")
+                .attr("fill", d => vis.colorScale(d.track_number))
                 .on("mouseover", function(event, d) {
                     d3.select(this)
-                        .attr("fill", "lightgrey")
+                        .attr("fill", "black")
+
+                    console.log(event);
 
                     vis.tooltip
                         .style("opacity", 1)
-                        .style("left", event.layerX + 20 + "px")
-                        .style("top", event.layerY + 50 + "px")
+                        .style("left", event.x - 70 + "px")
+                        .style("top", event.y - 630 + "px")
                         .html(`
-                        <div style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
+                        <div id="circle_tooltip" class="music_tooltip">
                             <h3 class="song_title">${d.Song_title}</h3>
                             <h4 class="song_info">Key: ${d.key}</h4>
                             <h4 class="song_info">BPM: ${d.bpm}</h4>
@@ -263,8 +264,9 @@ class musicVis {
                         </div>`);
                 })
                 .on("mouseout", function(event, d) {
+                    console.log(d)
                     d3.select(this)
-                        .attr("fill", "black")
+                        .attr("fill", d => vis.colorScale(d.track_number))
 
                     vis.tooltip
                         .style("opacity", 0)
@@ -296,9 +298,11 @@ class musicVis {
             [-120, -280, 0, -310]
         ]
 
+        let bezierScalar = 0.8;
+
         vis.scaledBezier = vis.bezierControls.map(array => {
             let scaledArray = array.map(n => {
-                n = n * 0.8;
+                n = n * bezierScalar;
                 return n;
             })
             return scaledArray;
@@ -316,7 +320,8 @@ class musicVis {
                 .append("path")
                 .attr("class", "transitionPaths")
                 .attr("fill", "none")
-                .attr("stroke", "black")
+                .attr("stroke", (d, i) => vis.colorScale(i))
+                .attr("stroke-width", "3px")
                 .style("stroke-dasharray", d => {
                     if (d.smooth_transition === true){
                         return ("0, 0");
@@ -342,11 +347,6 @@ class sampleVis{
         this.parentElement = parentElement;
         this.songData = songData;
 
-        // temporary color scheme (DELETE LATER)
-        this.colorScale = d3.scaleLinear()
-            .domain([0, 12])
-            .range(['pink', "purple"])
-
         console.log("musical data: " , this.songData);
 
         this.initVis()
@@ -357,7 +357,6 @@ class sampleVis{
 
         // init global margin & color conventions
         vis.margin = globalMargin;
-        vis.colors = globalColors;
 
         // init height and width
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -504,10 +503,10 @@ class sampleVis{
 
                 vis.tooltip
                     .style("opacity", 1)
-                    .style("left", event.layerX - 170 + "px")
-                    .style("top", event.layerY + 30 + "px")
+                    .style("left", event.x - 170 + "px")
+                    .style("top", event.y - 650 + "px")
                     .html(`
-                <div id="sample_tooltip" style="border: thin solid grey; border-radius: 5px; background: #181818; padding: 1vh">
+                <div id="sample_tooltip" class="music_tooltip">
                   
                 </div>`);
 
@@ -519,8 +518,6 @@ class sampleVis{
                         + `<h4 className='song_info'>Genre: ${d.genre}</h4>`;
                 })
                 document.getElementById("sample_tooltip").innerHTML = tooltipHTML;
-
-
             })
             .on("mouseout", (event, d) => {
                 vis.tooltip

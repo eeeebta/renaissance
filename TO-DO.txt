@@ -1,8 +1,7 @@
 STUFF TO GET DONE BEFORE FINAL SUBMISSION
 
 general
-- title description
-- move formatting to CSS
+
 
 george's visualizations
 - format tooltip (garamond, more centered)
@@ -13,9 +12,7 @@ ibta's visualizations
 - add tooltip to lyrics
 
 hanna's visualizations
-- fix tooltip placement
-- add in color progression for songs
+
 
 OTHER
 - video submission
-- testing feedback

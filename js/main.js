@@ -15,15 +15,14 @@ let promises = [
 
 Promise.all(promises)
     .then(function (data) {
-        // init_musical(data);
-        // init_spotify(data);
+        init_musical(data);
+        init_spotify(data);
         init_narrative(data);
     })
     .catch(function(err){ console.log(err) });
 
 // ----STANDARDIZED AESTHETIC STUFF---- //
 let globalMargin = {top: 20, right: 30, bottom: 20, left: 30};
-let globalColors = [];
 
 // musical data visualization initialization
 function init_musical(allDataArray) {
