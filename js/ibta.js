@@ -9,6 +9,8 @@ class narrativeVis {
         // this.songID = {}
         this.danceability = []
 
+        this.descSpotSub = {"Danceability": "Danceability represents, based on Spotify's analysis, how danceable it is -- taking into consideration tempo and rhythm"}
+
         this.data.forEach((d) => {
             d.danceability = +d.danceability;
             d.energy = +d.energy;
@@ -36,6 +38,9 @@ class narrativeVis {
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
+        console.log(vis.width)
+        console.log(vis.height)
+
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
@@ -46,7 +51,7 @@ class narrativeVis {
 
         vis.x = d3.scaleBand()
             .domain(this.songNames)
-            .range([vis.height, 0]);
+            .range([vis.width, 0]);
 
         vis.y = d3.scaleLinear()
             .range([vis.height, 0]);
@@ -86,8 +91,22 @@ class narrativeVis {
         vis.tooltip = d3.select("#circleTT")
                 .attr("class", "ibta-tooltip col")
 
+        vis.subjectiveLabel = d3.select("#spotifyLabelSubjective");
+
+        vis.subjectiveLabel
+                    .style("opacity", 1)
+                    .html(`
+                        <h3>Danceability</h3>
+                `)
+
         d3.select("#filterNar")
             .on("change", () => {
+                let selectedValue = d3.select("#filterNar").property("value");
+                vis.subjectiveLabel
+                    .style("opacity", 1)
+                    .html(`
+                        <h3>${selectedValue}</h3>
+                `)
                 vis.updateVis();
         })
 
@@ -145,6 +164,8 @@ class narrativeVis {
                             
                             
                         </div>`);
+
+                
             })
             .on("mouseout", function (d, e) {
                 d3.select(this).attr("r", 5)
@@ -238,7 +259,6 @@ class lyricVis {
         tmpSong.remove();
         tmpDescDiv.remove();
 
-        
 
         tmpLyrics.remove();
         tmpDesc.remove();
