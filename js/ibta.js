@@ -1,9 +1,11 @@
 class narrativeVis {
-    constructor(parentElement, data) {
+    constructor(parentElement, data, descData) {
         console.log("hdashdsa")
         this.parentElement = parentElement;
         this.data = data;
         this.songNames = [];
+        this.descData = descData;
+        this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
         // this.songID = {}
         this.danceability = []
 
@@ -81,9 +83,8 @@ class narrativeVis {
             )
 			.attr("class", "line-ibta");
 
-        vis.tooltip = d3.select("body").append("div")
-                .attr("class", "tooltip")
-                .attr("id", "circleTT")
+        vis.tooltip = d3.select("#circleTT")
+                .attr("class", "ibta-tooltip col")
 
         d3.select("#filterNar")
             .on("change", () => {
@@ -114,25 +115,42 @@ class narrativeVis {
         let circles = vis.svg.selectAll(".circles")
             .data(vis.data)
 
+        vis.y.domain([d3.min(vis.data, (d) => {
+            return d[selectedValue];
+        }), d3.max(vis.data, (d) => {
+            return +d[selectedValue];
+        })]);
+
+        vis.svg.select(".y-axis").call(vis.yAxis);
+
         circles.exit().remove();
 
         circles.enter()
             .append("circle")
             .merge(circles)
-            .on("mouseover", function (d, e) {
+            .on("mouseover", function (e, d) {
                 d3.select(this).attr("r", 8);
+
+                console.log(d.name)
+                console.log(e)
                 
                 vis.tooltip
                     .style("opacity", 1)
-                    .style("left", e.pageX + 20 + "px")
-                    .style("top", e.pageY + "px")
                     .html(`
-                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                        ${d}   
+                        <div style=""; padding: 20px">
+                            <h3>${d.name}</h3>
+                            <br>
+                            <h5>Genius' Description<h6>
+                            <p>${vis.descData[vis.songRef[d.name]].annotation}</p>
+                            
+                            
                         </div>`);
             })
             .on("mouseout", function (d, e) {
                 d3.select(this).attr("r", 5)
+                vis.tooltip
+                    .style("opacity", 0)
+                    .html(``);
             })
             .transition()
             .duration(100)
@@ -159,13 +177,7 @@ class narrativeVis {
                 })
             )
 
-        vis.y.domain([d3.min(vis.data, (d) => {
-            return d[selectedValue];
-        }), d3.max(vis.data, (d) => {
-            return +d[selectedValue];
-        })]);
-
-        vis.svg.select(".y-axis").call(vis.yAxis);
+        
 
     }
 }
