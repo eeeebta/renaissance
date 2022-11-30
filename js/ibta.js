@@ -30,7 +30,7 @@ class narrativeVis {
 
 
         // init margins and height
-        vis.margin = globalMargin;
+        vis.margin = {top: 20, right: 30, bottom: 180, left: 60};;
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -54,13 +54,20 @@ class narrativeVis {
         vis.yAxis = d3.axisLeft().scale(vis.y);
 
         vis.svg.append("g")
-            .attr("class", "x-axis axis-ibta")
+            .attr("class", "x-axis x-axis-ibta axis-ibta")
             .attr("transform", `translate(0, ${vis.height})`);
 
         vis.svg.append("g")
             .attr("class", "y-axis axis-ibta");
 
         vis.svg.select(".x-axis").call(vis.xAxis);
+
+        vis.svg.select(".x-axis").selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)"); 
+
 
         vis.svg.append("path")
 			.datum(vis.data)
@@ -73,6 +80,10 @@ class narrativeVis {
                 })
             )
 			.attr("class", "line-ibta");
+
+        vis.tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .attr("id", "circleTT")
 
         d3.select("#filterNar")
             .on("change", () => {
@@ -108,6 +119,21 @@ class narrativeVis {
         circles.enter()
             .append("circle")
             .merge(circles)
+            .on("mouseover", function (d, e) {
+                d3.select(this).attr("r", 8);
+                
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", e.pageX + 20 + "px")
+                    .style("top", e.pageY + "px")
+                    .html(`
+                        <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
+                        ${d}   
+                        </div>`);
+            })
+            .on("mouseout", function (d, e) {
+                d3.select(this).attr("r", 5)
+            })
             .transition()
             .duration(100)
             .attr("class", "circles")
@@ -116,6 +142,7 @@ class narrativeVis {
             .attr("cx", (d) => { return vis.x(d.name)})
             .attr("cy", (d) => { return vis.y(d[selectedValue]) })
             .attr("r", 5)
+            
 
         let line = d3.select(".line-ibta");
 

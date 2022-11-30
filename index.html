@@ -1,139 +1,156 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/styles.css">
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
-        <link href='https://fonts.googleapis.com/css?family=Grenze Gotisch' rel='stylesheet'>
-        <link href="css/fullpage.min.css" rel="stylesheet" type="text/css">
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.39.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Grenze Gotisch' rel='stylesheet'>
+    <link href="css/fullpage.min.css" rel="stylesheet" type="text/css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-    </head>
-    <body>
-        <div>
-            <div id="fullpage" class="container grid mx-auto px-auto">
-                <div class="section fp-noscroll">
-                    <div class="intro_title">
-                        <h1> Exploring Beyonce's Renaissance</h1>
+</head>
+
+<body>
+    <div>
+        <div id="fullpage" class="container grid mx-auto px-auto">
+            <div class="section fp-noscroll">
+                <div class="intro_title">
+                    <h1> Exploring Beyonce's Renaissance</h1>
+                </div>
+                <div class="section_title object-contain">
+                    <img src="assets/images/album_cover.jpg" class="img-fluid">
+                    <h2 id="intro_image_overlay">
+                        Beyonce's RENAISSANCE album, released on July 29, 2022, is her seventh studio album to date.
+                        Heavily inspired by Black and Queer electronic, hip-hop, and disco music, RENAISSANCE is
+                        an hour-long journey of self-expression, escapism, and liberation. Scroll down to view
+                        RENAISSANCE
+                        from three different perspectives: global reception, musical progression & history, and
+                        narrative & subjective filters.
+                    </h2>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <!-- George -->
+            <div class="section fp-noscroll">
+                <br>
+                <br>
+                <div class="slide">
+                    <div class="intro">
+                        <div class="col">
+
+                        </div>
+                        <div class="subsection-title">
+                            <h1>ACT I: Renaissance Streams Worldwide</h1>
+                        </div>
+                        <div class="subsection-explanation">
+                            <h2>
+                                To see the global impact of Beyonce's RENAISSANCE, look no further than the Spotify
+                                streaming data. RENAISSANCE not only attracted critical acclaim, but swept the charts
+                                for weeks after its release.
+                            </h2>
+                        </div>
                     </div>
-                    <div class="section_title object-contain">
-                        <img src="assets/images/album_cover.jpg" class="img-fluid">
-                        <h2 id="intro_image_overlay">
-                            Beyonce's RENAISSANCE album, released on July 29, 2022, is her seventh studio album to date.
-                            Heavily inspired by Black and Queer electronic, hip-hop, and disco music, RENAISSANCE is
-                            an hour-long journey of self-expression, escapism, and liberation. Scroll down to view RENAISSANCE
-                            from three different perspectives: global reception, musical progression & history, and
-                            narrative & subjective filters.
-                        </h2>
+                    <div class="container__visualization">
+                        <div>
+                            <h3>Spotify TOP 200 streams on the first 30 days following the release</h3>
+                            <p>Click on a country to see the details</p>
+                        </div>
+                        <div class="container__left" id="spotifyVisGlobe_div">
+                        </div>
+                        <div class="container__right">
+                            <div id="spotifyVisGlobetooltip_div">
+                                <h5 id="selectionTitle"></h5>
+                                <h5 id="selectionViews"></h5>
+                                <h5 id="selectionMost"></h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-
+                <div class="slide">
+                    <div class="subsection-title">
+                        <h2> Click to explore the songs</h2>
+                    </div>
+                    <div class="container__visualization">
+                        <div class="test" onclick=figureGraph()>
+                            <div class="album_container">
+                                <img id=album_cover src="assets/images/album_cover.jpg" alt="Renaissance album cover">
+                                <h2 class="subtext">Total streams: 2.1 billion</h2>
+                            </div>
+                            <div id="songsDist"></div>
+                        </div>
+                    </div>
                 </div>
-                <!-- George -->
-                <div class="section fp-noscroll">
-                    <br>
-                    <br>
-                    <div class="slide">
+            </div>
+            <!-- Hanna -->
+            <div class="section fp-noscroll">
+                <div class="slide">
+                    <div class="circleMusicVis">
                         <div class="intro">
                             <div class="subsection-title">
-                                <h1>ACT I: Renaissance Streams Worldwide</h1>
+                                <h1>ACT II: A Musical Analysis</h1>
                             </div>
                             <div class="subsection-explanation">
                                 <h2>
-                                    To see the global impact of Beyonce's RENAISSANCE, look no further than the Spotify
-                                    streaming data. RENAISSANCE not only attracted critical acclaim, but swept the charts
-                                    for weeks after its release.
+                                    Why is RENAISSANCE so good? The musical complexity of the album and harmonic journey
+                                    on which
+                                    it takes the listener, coupled with both top-40 and deep cut samples from the last
+                                    few decades
+                                    of Black and Queer music, makes the album absolutely intoxicating.
                                 </h2>
                             </div>
                         </div>
-                        <div class="container__visualization">
-                            <div>
-                                <h3>Spotify TOP 200 streams on the first 30 days following the release</h3>
-                                <p>Click on a country to see the details</p>
-                            </div>
-                            <div class="container__left" id="spotifyVisGlobe_div">
-                            </div>
-                            <div class="container__right">
-                                <div id="spotifyVisGlobetooltip_div">
-                                    <h5 id="selectionTitle"></h5>
-                                    <h5 id="selectionViews"></h5>
-                                    <h5 id="selectionMost"></h5>
-                                </div>
-                            </div>
+                        <div class="musicVis_narrator">
+                            <p id="musicVis_narrative_text"></p>
                         </div>
-                    </div>
-                    <div class="slide">
-                        <div class="subsection-title">
-                            <h2> Click to explore the songs</h2>
+                        <div id="musicVis_div" style="width: 100%; height:60vh">
                         </div>
-                        <div class="container__visualization" >
-                            <div class="test" onclick=figureGraph()>
-                                <div class="album_container">
-                                    <img id=album_cover src="assets/images/album_cover.jpg" alt="Renaissance album cover">
-                                    <h2 class="subtext">Total streams: 2.1 billion</h2>
-                                </div>
-                                <div id="songsDist"></div>
-                            </div>
+                        <div class="musicVis_progressionDiv" style="width: 100%; height: 5vh">
+                            <button class="button" id="button_prev" onclick=myMusicVis.buttonPrev()>Previous</button>
+                            <button class="button" id="button_next" onclick=myMusicVis.buttonNext()>Next</button>
                         </div>
                     </div>
                 </div>
-                <!-- Hanna -->
-                <div class="section fp-noscroll">
-                    <div class="slide">
-                        <div class="circleMusicVis">
-                            <div class="intro">
-                                <div class="subsection-title">
-                                    <h1>ACT II: A Musical Analysis</h1>
-                                </div>
-                                <div class="subsection-explanation">
-                                    <h2>
-                                        Why is RENAISSANCE so good? The musical complexity of the album and harmonic journey on which
-                                        it takes the listener, coupled with both top-40 and deep cut samples from the last few decades
-                                        of Black and Queer music, makes the album absolutely intoxicating.
-                                    </h2>
-                                </div>
-                            </div>
-                            <div class="musicVis_narrator">
-                                <p id="musicVis_narrative_text"></p>
-                            </div>
-                            <div id="musicVis_div">
-                            </div>
-                            <div class="musicVis_progressionDiv" style="width: 100%; height: 5vh">
-                                <button class="button" id="button_prev" onclick=myMusicVis.buttonPrev()>Previous</button>
-                                <button class="button" id="button_next" onclick=myMusicVis.buttonNext()>Next</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="sampleMusicVis">
-                            <h2 class="sample_intro">RENAISSANCE samples music from a wide variety of genres and musical eras.</h2>
-                            <h2 class="sample_intro">Hover each bar to learn more about the samples from that year.</h2>
-                            <div id="sampleVis_div">
-                            </div>
+                <div class="slide">
+                    <div class="sampleMusicVis">
+                        <h2 class="sample_intro">RENAISSANCE samples music from a wide variety of genres and musical
+                            eras.</h2>
+                        <h2 class="sample_intro">Hover each bar to learn more about the samples from that year.</h2>
+                        <div id="sampleVis_div" style="width: 100%; height:40vh">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Ibta : My visualizations are really buggy right now, so I'll see what I can do to turn it into a slide. -->
-                <div class="section">
-                    <div class="slide">
+            <!-- Ibta : My visualizations are really buggy right now, so I'll see what I can do to turn it into a slide. -->
+            <div class="section">
+                <div class="slide">
+                    <div class="row">
                         <div class="intro">
                             <div class="subsection-title">
                                 <h1>ACT III: A Subjective and (Brief) Narrative Analysis</h1>
                             </div>
                             <div class="subsection-explanation">
                                 <h2>
-                                    In addition to the musical complexity of the album, RENAISSANCE touches a wide range of
-                                    "feeling" aspects. Its combination of high danceablity, balance of speech and melody,
-                                    and evocation of being on dancefloor keep the listener engaged and interested. The lyrics
-                                    are unapologetic and celebratory, resulting in a euphoric and liberating album experience.
+                                    In addition to the musical complexity of the album, RENAISSANCE touches a wide range
+                                    of
+                                    "feeling" aspects. Its combination of high danceablity, balance of speech and
+                                    melody,
+                                    and evocation of being on dancefloor keep the listener engaged and interested. The
+                                    lyrics
+                                    are unapologetic and celebratory, resulting in a euphoric and liberating album
+                                    experience.
                                 </h2>
                             </div>
                         </div>
-                        <div class="form-control w-full max-w-xs">
+                    </div>
+                    <div class="row">
+                        <div class="">
                             <label class="label">
                                 <span class="label-text">Choose a filter!</span>
                             </label>
@@ -148,11 +165,18 @@
                                 <option value="valence">Valence</option>
                             </select>
                         </div>
-                        <div id="narrativeVis_div"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div id="narrativeVis_div" style="width: 100%;height: 60vh;"></div>
+                        </div>
+                        <div class="col">
+
+                        </div>
                     </div>
                     <div class="slide">
                         <div class="normalScrollThis">
-                            <div class="form-control w-full max-w-xs">
+                            <div class="">
                                 <label class="label">
                                     <span class="label-text">Choose a song!</span>
                                 </label>
@@ -176,11 +200,15 @@
                                 </select>
                                 <h3>thank you genius for providing this data</h3>
                             </div>
-                            <div id="lyricVis_div">
-                                <div class="grid grid-cols-3">
+                            <div id="lyricVis_div" style="height: 50vh;">
+                                <div class="row">
                                     <br>
-                                    <div id="lyrics-view" class="col-auto"></div>
-                                    <div id="song-desc" class="col-auto"></div>
+                                    <div class="col">
+                                        <div id="lyrics-view" class="col-auto"></div>
+                                    </div>
+                                    <div class="col">
+                                        <div id="song-desc" class="col-auto"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +232,7 @@
                 normalScrollElements: ".normalScrollThis"
             });
         </script> -->
-        
+
 
         <!-- our js -->
         <script src="js/main.js"></script>
@@ -223,8 +251,11 @@
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
         <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
 
 
-    </body>
+</body>
+
 </html>
