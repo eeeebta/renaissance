@@ -302,7 +302,7 @@ class BarVis {
         console.log(vis.displayData)
 
         // define dimensions
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 40};
+        vis.margin = {top: 20, right: 0, bottom: 20, left: 0};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
         console.log("Vrika", vis.height)
@@ -322,7 +322,8 @@ class BarVis {
             .text("Listens in" + vis.selection)
             .attr('transform', `translate(${vis.width / 2}, 10)`)
             .attr('text-anchor', 'middle')
-            .attr('fill', 'gold');
+            .attr('font-family', 'Grenze Gotisch')
+            .attr('fill', '#DCA54C');
 
         /*
         // tooltip group
