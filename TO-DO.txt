@@ -8,8 +8,6 @@ george's visualizations
 - add key of how many streams = one person
 
 ibta's visualizations
-- buggy graph
-- add tooltip to lyrics
 
 hanna's visualizations
 
