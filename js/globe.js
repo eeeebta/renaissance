@@ -37,10 +37,10 @@ class spotifyVisGlobe {
         vis.colorScale = d3.scaleLinear()
             .range(['black', "#DCA54C"])
 
-
-        vis.tooltipTitle = d3.select("#" + 'selectionTitle')
-        vis.tooltipStreams = d3.select("#"+'selectionViews')
-        vis.tooltipMost = d3.select("#"+'selectionMost')
+        vis.div = d3.select("#spotifyVisGlobetooltip_div")
+        vis.tooltipTitle = d3.select("#selectionTitle")
+        vis.tooltipStreams = d3.select("#selectionViews")
+        vis.tooltipMost = d3.select("#selectionMost")
 
         vis.projection = d3.geoOrthographic() // d3.geoStereographic
             .scale(vis.height/2)
@@ -168,11 +168,17 @@ class spotifyVisGlobe {
 
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
+                    console.log('EDW')
+                    //vis.div.style("display", "none");
+                    console.log("tora tha ginei tis poutanas")
 
-                    vis.tooltipTitle.text(d.properties.name)
-                    vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
+                    // if we have previously created a graph then we want to call update on the old one
+                    vis.mySpotifyVisBar = new BarVis("spotifyVisGlobetooltip_div", vis.data, d.properties.name);
+
+                    //vis.tooltipTitle.text(d.properties.name)
+                    //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
-                    vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
+                    //vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
 
                 }
                 // re-clicked country
@@ -183,10 +189,12 @@ class spotifyVisGlobe {
                     currentCount = null
                     locator = null
                     selectionCoun = false
+                    // hide vis
+                    vis.div.style('display','none')
 
-                    vis.tooltipTitle.text("")
-                    vis.tooltipStreams.text("")
-                    vis.tooltipMost.text("")
+                    //vis.tooltipTitle.text("")
+                    //vis.tooltipStreams.text("")
+                    //vis.tooltipMost.text("")
                 }
                 // different selection
                 else{
@@ -204,10 +212,12 @@ class spotifyVisGlobe {
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
 
-                    vis.tooltipTitle.text(d.properties.name)
-                    vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
+                    // UPDATE GRAPH
+
+                    //vis.tooltipTitle.text(d.properties.name)
+                    //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
-                    vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
+                    //vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
                 }
             })
 
@@ -228,3 +238,178 @@ class spotifyVisGlobe {
         });
     }
 }
+
+
+let barChart = null
+let displayData = null
+
+let dateParser = d3.timeParse("%m/%d/%Y");
+
+
+function updateGraph(name, data){
+    // populate graph
+    if(barChart === null){
+        barChart = new BarVis('dailyGraph', name, data)
+    }
+    else{
+        barChart.wrangleData(name)
+    }
+}
+
+class BarVis {
+    constructor(parentElement, data, country) {
+        this.parentElement = parentElement;
+        this.data = data;
+        this.selection = country;
+        this.initData()
+        this.initVis()
+    }
+
+    initData() {
+        let vis = this;
+
+
+        let days = {}
+
+        for (const row in vis.data) {
+            // if selection
+            if(vis.data[row].country === vis.selection) {
+                let date = vis.data[row].date
+                let track = vis.data[row].track
+                if (!(date in days)) {
+                    days[date] = 0
+                }
+                days[date] += vis.data[row].streams
+            }
+        }
+        let res = []
+        for (const day in days){
+
+            let row = {'date':dateParser(day),
+                'streams':days[day]}
+            res.push(row)
+        }
+
+        vis.displayData = res
+    }
+
+    initVis() {
+
+        let vis = this;
+
+        console.log("Begin creating graph for " + vis.selection)
+        console.log("With the data:")
+        console.log(vis.displayData)
+
+        // define dimensions
+        vis.margin = {top: 20, right: 20, bottom: 20, left: 40};
+        vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
+        console.log("Vrika", vis.height)
+        console.log("Vrika", vis.width)
+
+        // init drawing area
+        vis.svg = d3.select("#" + vis.parentElement).append("svg")
+            .attr("width", vis.width + vis.margin.left + vis.margin.right)
+            .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
+            .append('g')
+            .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
+
+        // add title
+        vis.title = vis.svg.append('g')
+            .attr('class', 'title bar-title')
+            .append('text')
+            .text("Listens in" + vis.selection)
+            .attr('transform', `translate(${vis.width / 2}, 10)`)
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'gold');
+
+        /*
+        // tooltip group
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'barTooltip')
+
+      */
+        // Scales and axes
+        // init scales
+        vis.x = d3.scaleTime().range([0, vis.width]);
+        vis.y = d3.scaleLinear().range([vis.height, 0]);
+
+        // init x & y axis
+        vis.xAxis = vis.svg.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + vis.height + ")");
+        vis.yAxis = vis.svg.append("g")
+            .attr("class", "axis axis--y");
+
+
+        // begin data wrangling
+        console.log("data wrangling")
+        this.wrangleData(vis.selection);
+    }
+
+    // adjust to not overwrite if selection is current
+    wrangleData(selection) {
+        let vis = this
+        /*
+                if((selection !== null) && (vis.selection !== selection)){
+                    vis.selection = selection
+                    console.log('updated data')
+                }
+                vis.displayData = vis.groupedData[vis.selection].sort(function(a,b){
+                    return a.date - b.date
+                })
+                console.log('New display data')
+                console.log(vis.displayData)
+        */
+        vis.updateVis()
+    }
+
+
+    updateVis() {
+        let vis = this;
+
+        vis.x.domain(d3.extent(vis.displayData, function (d) {
+            return d.date
+        }));
+        vis.y.domain(d3.extent(vis.displayData, function (d) {
+            return d.streams
+        }));
+
+        vis.bar = vis.svg.selectAll(".bar")
+            .data(vis.displayData)
+
+        vis.bar.enter().append("rect")
+            .attr("class", "bar")
+            .merge(vis.bar)
+            .attr("x", function (d) {
+                console.log(vis.x(d.date))
+                return vis.x(d.date)
+            })
+            .attr("y", function (d) {
+                console.log(vis.y(d.streams))
+                return vis.y(d.streams);
+            })
+            .attr("height", function (d) {
+                return vis.height - vis.y(d.streams);
+            })
+            .attr('width',function(d) {
+                return 10
+            })
+            .attr('fill','red')
+            .transition()
+            .duration(200);
+
+        vis.title.text(vis.selection)
+        // draw x & y axis
+        //vis.xAxis.transition().duration(400).call(d3.axisBottom(vis.x).tickFormat(d3.timeFormat("%d-%b")));
+        console.log('wow')
+        // Update the y-axis
+        // draw x & y axis
+        vis.xAxis.transition().duration(400).call(d3.axisBottom(vis.x).tickFormat(d3.timeFormat("%d-%b")));
+        vis.yAxis.transition().duration(400).call(d3.axisLeft(vis.y).ticks(5));
+
+    }
+}
+
