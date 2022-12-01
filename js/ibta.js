@@ -9,7 +9,13 @@ class narrativeVis {
         // this.songID = {}
         this.danceability = []
 
-        this.descSpotSub = {"Danceability": "Danceability represents, based on Spotify's analysis, how danceable it is -- taking into consideration tempo and rhythm"}
+        this.descSpotSub = {"Danceability": "Danceability represents, based on Spotify's analysis, how danceable it is -- taking into consideration tempo and rhythm",
+                            "Valence": "A higher valence score is attributed to the song being happier/euphoric, whereas lower is more negative/sad",
+                            "Energy": "The intensity of a track -- like if it's fast or loud and energizing",
+                            "Loudness": "Loudness of a track in decibels",
+                            "Speechiness": "How vocal a track is. A lower score on this would mean that there are less vocals.",
+                            "Instrumentalness": "The opposite of speechiness. A higher score means that there are more instruments than vocals.",
+                            "Liveness": "A measure of if this song was performed live"}
 
         this.data.forEach((d) => {
             d.danceability = +d.danceability;
@@ -97,6 +103,7 @@ class narrativeVis {
                     .style("opacity", 1)
                     .html(`
                         <h3>Danceability</h3>
+                        <p>${this.descSpotSub["Danceability"]}</p>
                 `)
 
         d3.select("#filterNar")
@@ -106,6 +113,7 @@ class narrativeVis {
                     .style("opacity", 1)
                     .html(`
                         <h3>${selectedValue}</h3>
+                        <p>${this.descSpotSub[selectedValue]}</p>
                 `)
                 vis.updateVis();
         })
@@ -123,7 +131,7 @@ class narrativeVis {
     updateVis() {
         let vis = this;
 
-        let selectedValue = d3.select("#filterNar").property("value");
+        let selectedValue = d3.select("#filterNar").property("value").toLowerCase();
 
         let texts = d3.selectAll("text")
             .data(vis.data)
@@ -160,7 +168,8 @@ class narrativeVis {
                             <h3>${d.name}</h3>
                             <br>
                             <h5>Genius' Description<h6>
-                            <p>${vis.descData[vis.songRef[d.name]].annotation}</p>
+                            <p>${vis.descData[vis.songRef[d.name]].annotation.replace(`^#[^ !@#$%^&*(),.?":{}|<>]*$`, " ").replace("\\n", " ")}</p>
+                            <p>${selectedValue[0].toUpperCase() + selectedValue.substring(1)} Value: ${d[selectedValue]}</p>
                             
                             
                         </div>`);
