@@ -202,9 +202,7 @@ function cleanSpotifyData(data) {
             'album':        d.album
         }
 
-        if (d.album === 'RENAISSANCE') {
-            cleaned.push((d));
-        }
+        cleaned.push((d));
 
     });
     return cleaned;

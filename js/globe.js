@@ -242,9 +242,7 @@ class spotifyVisGlobe {
 
 let barChart = null
 let displayData = null
-
 let dateParser = d3.timeParse("%m/%d/%Y");
-
 
 function updateGraph(name, data){
     // populate graph
@@ -267,30 +265,39 @@ class BarVis {
 
     initData() {
         let vis = this;
-
-
-        let days = {}
-
+        let countries = {}
         for (const row in vis.data) {
-            // if selection
-            if(vis.data[row].country === vis.selection) {
-                let date = vis.data[row].date
-                let track = vis.data[row].track
-                if (!(date in days)) {
-                    days[date] = 0
+            let country = vis.data[row].country
+            let date = vis.data[row].date
+            let streams = vis.data[row].streams
+
+
+            if(country === 'Global'){
+
+            }
+            else {
+                if(!(country in countries)){
+                    countries[country] = {}
                 }
-                days[date] += vis.data[row].streams
+                if(!(date in countries[country])) {
+                    countries[country][date] = 0
+                }
+                countries[country][date] += streams
             }
         }
-        let res = []
-        for (const day in days){
-
-            let row = {'date':dateParser(day),
-                'streams':days[day]}
-            res.push(row)
+        let res = {}
+        for (const country in countries){
+            res[country] = []
+            for (const date in countries[country]) {
+                let row = {
+                    'date': dateParser(date),
+                    'streams': countries[country][date]
+                }
+                res[country].push(row)
+            }
         }
 
-        vis.displayData = res
+        vis.cleanedData = res
     }
 
     initVis() {
@@ -302,11 +309,9 @@ class BarVis {
         console.log(vis.displayData)
 
         // define dimensions
-        vis.margin = {top: 20, right: 0, bottom: 20, left: 0};
+        vis.margin = {top: 20, right: 0, bottom: 20, left: 60};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
-        console.log("Vrika", vis.height)
-        console.log("Vrika", vis.width)
 
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
@@ -322,6 +327,7 @@ class BarVis {
             .text("Listens in" + vis.selection)
             .attr('transform', `translate(${vis.width / 2}, 10)`)
             .attr('text-anchor', 'middle')
+            .attr('font-size', '3vh')
             .attr('font-family', 'Grenze Gotisch')
             .attr('fill', '#DCA54C');
 
@@ -335,24 +341,35 @@ class BarVis {
         // Scales and axes
         // init scales
         vis.x = d3.scaleTime().range([0, vis.width]);
-        vis.y = d3.scaleLinear().range([vis.height, 0]);
+        vis.xAxis = d3.axisBottom()
+            .scale(vis.x);
 
-        // init x & y axis
-        vis.xAxis = vis.svg.append("g")
-            .attr("class", "axis axis--x")
+        vis.y = d3.scaleLinear().range([vis.height, 0]);
+        vis.yAxis = d3.axisLeft()
+            .scale(vis.y);
+
+        // init x
+        vis.svg.append("g")
+            .attr("class", "x-axis axis")
             .attr("transform", "translate(0," + vis.height + ")");
-        vis.yAxis = vis.svg.append("g")
-            .attr("class", "axis axis--y");
+
+        // y axis group
+        vis.svg.append("g")
+            .attr("class", "y-axis axis");
 
 
         // begin data wrangling
         console.log("data wrangling")
-        this.wrangleData(vis.selection);
+        this.wrangleData();
     }
 
     // adjust to not overwrite if selection is current
-    wrangleData(selection) {
+    wrangleData(selection=null) {
         let vis = this
+        if(selection !== null){
+            console.log("SWITCH IT ")
+            vis.selection = selection
+        }
         /*
                 if((selection !== null) && (vis.selection !== selection)){
                     vis.selection = selection
@@ -364,6 +381,12 @@ class BarVis {
                 console.log('New display data')
                 console.log(vis.displayData)
         */
+        console.log('READY TO ROCK N ROLL')
+        vis.displayData = vis.cleanedData[vis.selection].sort(function(a,b){
+            return a.date - b.date
+        })
+        console.log(vis.displayData)
+
         vis.updateVis()
     }
 
@@ -374,9 +397,9 @@ class BarVis {
         vis.x.domain(d3.extent(vis.displayData, function (d) {
             return d.date
         }));
-        vis.y.domain(d3.extent(vis.displayData, function (d) {
-            return d.streams
-        }));
+
+        vis.y.domain([0,d3.max(vis.displayData, d=>d.streams)])
+
 
         vis.bar = vis.svg.selectAll(".bar")
             .data(vis.displayData)
@@ -385,11 +408,9 @@ class BarVis {
             .attr("class", "bar")
             .merge(vis.bar)
             .attr("x", function (d) {
-                console.log(vis.x(d.date))
                 return vis.x(d.date)
             })
             .attr("y", function (d) {
-                console.log(vis.y(d.streams))
                 return vis.y(d.streams);
             })
             .attr("height", function (d) {
@@ -398,18 +419,18 @@ class BarVis {
             .attr('width',function(d) {
                 return 10
             })
-            .attr('fill','red')
+            .attr('fill','white')
             .transition()
             .duration(200);
 
         vis.title.text(vis.selection)
         // draw x & y axis
         //vis.xAxis.transition().duration(400).call(d3.axisBottom(vis.x).tickFormat(d3.timeFormat("%d-%b")));
-        console.log('wow')
+
         // Update the y-axis
         // draw x & y axis
-        vis.xAxis.transition().duration(400).call(d3.axisBottom(vis.x).tickFormat(d3.timeFormat("%d-%b")));
-        vis.yAxis.transition().duration(400).call(d3.axisLeft(vis.y).ticks(5));
+        vis.svg.select(".x-axis").transition().duration(400).call(vis.xAxis);
+        vis.svg.select(".y-axis").transition().duration(400).call(vis.yAxis);
 
     }
 }
