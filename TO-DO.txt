@@ -4,8 +4,14 @@ general
 
 
 george's visualizations
-- format tooltip (garamond, more centered)
+- color gradient on globe
+- barchart x axis --> finalize update
+- globe vis supporting text
 - add key of how many streams = one person
+- expand visualization to every song(?)
+- supporting text for figures part
+- into button for figures part
+
 
 ibta's visualizations
 

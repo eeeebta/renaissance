@@ -6,13 +6,13 @@ var selectionCoun = false
 var currentCount = null
 var locator = null
 
-class spotifyVisGlobe {
+class spotifyGlobeVis {
     constructor(parentElement, data, geoData) {
         this.parentElement = parentElement;
         this.data = data
         this.geoData = geoData;
-
         this.displayData = null;
+        this.mySpotifyVisBar = null
 
         console.log("Spotify data analysis")
         //this.cleanData();
@@ -24,7 +24,7 @@ class spotifyVisGlobe {
         let vis = this;
         console.log(vis.geoData)
         // set margin and width/height
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
+        vis.margin = {top: 20, right: 10, bottom: 20, left: 0};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -173,8 +173,13 @@ class spotifyVisGlobe {
                     console.log("tora tha ginei tis poutanas")
 
                     // if we have previously created a graph then we want to call update on the old one
-                    vis.mySpotifyVisBar = new BarVis("spotifyVisGlobetooltip_div", vis.data, d.properties.name);
-
+                    if(vis.mySpotifyVisBar === null) {
+                        vis.mySpotifyVisBar = new BarVis("spotifyVisGlobetooltip_div", vis.data, d.properties.name);
+                    }
+                    else {
+                        vis.mySpotifyVisBar.wrangleData(d.properties.name)
+                    }
+                    vis.div.style('display','block')
                     //vis.tooltipTitle.text(d.properties.name)
                     //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
@@ -213,7 +218,7 @@ class spotifyVisGlobe {
                     rotate[1] = vis.projection.rotate()[1]
 
                     // UPDATE GRAPH
-
+                    vis.mySpotifyVisBar.wrangleData(currentCount.properties.name)
                     //vis.tooltipTitle.text(d.properties.name)
                     //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
@@ -242,7 +247,7 @@ class spotifyVisGlobe {
 
 let barChart = null
 let displayData = null
-let dateParser = d3.timeParse("%m/%d/%Y");
+let dateParser = d3.timeParse("%m/%e/%Y");
 
 function updateGraph(name, data){
     // populate graph
@@ -309,7 +314,7 @@ class BarVis {
         console.log(vis.displayData)
 
         // define dimensions
-        vis.margin = {top: 20, right: 0, bottom: 20, left: 60};
+        vis.margin = {top: 20, right: 20, bottom: 40, left: 60};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -340,9 +345,10 @@ class BarVis {
       */
         // Scales and axes
         // init scales
-        vis.x = d3.scaleTime().range([0, vis.width]);
+        vis.x = d3.scaleTime().range([0, vis.width-vis.margin.right]);
         vis.xAxis = d3.axisBottom()
-            .scale(vis.x);
+            .tickFormat(d3.timeFormat("%m/%d"))
+            .scale(vis.x)
 
         vis.y = d3.scaleLinear().range([vis.height, 0]);
         vis.yAxis = d3.axisLeft()
@@ -351,7 +357,7 @@ class BarVis {
         // init x
         vis.svg.append("g")
             .attr("class", "x-axis axis")
-            .attr("transform", "translate(0," + vis.height + ")");
+            .attr("transform", "translate(7," + vis.height + ")");
 
         // y axis group
         vis.svg.append("g")
@@ -395,8 +401,9 @@ class BarVis {
         let vis = this;
 
         vis.x.domain(d3.extent(vis.displayData, function (d) {
-            return d.date
+            return new Date(d.date)
         }));
+
 
         vis.y.domain([0,d3.max(vis.displayData, d=>d.streams)])
 
@@ -408,7 +415,7 @@ class BarVis {
             .attr("class", "bar")
             .merge(vis.bar)
             .attr("x", function (d) {
-                return vis.x(d.date)
+                return vis.x(d.date)+5
             })
             .attr("y", function (d) {
                 return vis.y(d.streams);
@@ -417,7 +424,7 @@ class BarVis {
                 return vis.height - vis.y(d.streams);
             })
             .attr('width',function(d) {
-                return 10
+                return 5
             })
             .attr('fill','white')
             .transition()
@@ -426,10 +433,18 @@ class BarVis {
         vis.title.text(vis.selection)
         // draw x & y axis
         //vis.xAxis.transition().duration(400).call(d3.axisBottom(vis.x).tickFormat(d3.timeFormat("%d-%b")));
-
         // Update the y-axis
         // draw x & y axis
-        vis.svg.select(".x-axis").transition().duration(400).call(vis.xAxis);
+        vis.svg.select(".x-axis").transition().duration(400)
+            .call(vis.xAxis.tickValues(d3.map(vis.displayData, function (d) {
+                return new Date(d.date)
+            })))
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+
         vis.svg.select(".y-axis").transition().duration(400).call(vis.yAxis);
 
     }

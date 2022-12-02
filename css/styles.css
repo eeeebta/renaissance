@@ -200,24 +200,24 @@ p {
 /* globe */
 .container__left{
     height: 50vh;
-    width:63vh;
+    width:48vh;
     float:left;
     margin-bottom: 40px;
 }
 /* tooltip */
 .container__right{
     height: 50vh;
-    width: 65vh;
+    width: 80vh;
     float:right
 }
 
-.album_container{
+button{
     margin: auto;
-    width: 250px;
-    height:250px;
+    width: 100px;
+    height:40px;
     border: 1px solid #DCA54C;
-    padding: 10px;
 }
+
 #album_cover{
     margin:auto;
     width:100px;
@@ -229,3 +229,4 @@ p {
     margin-left: 10px;
     margin-right:10px;
 }
+

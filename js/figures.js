@@ -1,8 +1,9 @@
-var tracksNames = ['BREAK MY SOUL', "I'M THAT GIRL", 'ALIEN SUPERSTAR', 'CUFF IT', 'COZY', 'CHURCH GIRL',
+let tracksNames = ['BREAK MY SOUL', "I'M THAT GIRL", 'ALIEN SUPERSTAR', 'CUFF IT', 'COZY', 'CHURCH GIRL',
     'ENERGY (feat. Beam)', 'SUMMER RENAISSANCE', "VIRGO'S GROOVE", 'PLASTIC OFF THE SOFA',
     'MOVE (feat. Grace Jones & Tems)', 'HEATED',
     'THIQUE', 'PURE/HONEY', 'ALL UP IN YOUR MIND', 'AMERICA HAS A PROBLEM']
-var tracksStreams =
+
+let tracksStreams =
     {'BREAK MY SOUL':0, "I'M THAT GIRL":0,
         'ALIEN SUPERSTAR':0, 'CUFF IT':0,
         'COZY':0, 'CHURCH GIRL':0,
@@ -12,24 +13,20 @@ var tracksStreams =
         'THIQUE':0, 'PURE/HONEY':0,
         'ALL UP IN YOUR MIND':0, 'AMERICA HAS A PROBLEM':0}
 
-var tracksFigures =
-    {'BREAK MY SOUL':25, "I'M THAT GIRL":6,
-        'ALIEN SUPERSTAR':15, 'CUFF IT':11,
-        'COZY':5, 'CHURCH GIRL':6,
-        'ENERGY (feat. Beam)':6, 'SUMMER RENAISSANCE':5,
-        "VIRGO'S GROOVE":4, 'PLASTIC OFF THE SOFA':3,
-        'MOVE (feat. Grace Jones & Tems)':2, 'HEATED':3,
-        'THIQUE':3, 'PURE/HONEY':2,
-        'ALL UP IN YOUR MIND':2, 'AMERICA HAS A PROBLEM':2}
+let tracksFigures =
+    {'BREAK MY SOUL':49, "I'M THAT GIRL":11,
+        'ALIEN SUPERSTAR':28, 'CUFF IT':23,
+        'COZY':10, 'CHURCH GIRL':12,
+        'ENERGY (feat. Beam)':13, 'SUMMER RENAISSANCE':10,
+        "VIRGO'S GROOVE":6, 'PLASTIC OFF THE SOFA':7,
+        'MOVE (feat. Grace Jones & Tems)':5, 'HEATED':6,
+        'THIQUE':6, 'PURE/HONEY':5,
+        'ALL UP IN YOUR MIND':4, 'AMERICA HAS A PROBLEM':4}
 
-class figures {
+class spotifyFigVis {
     constructor(parentElement, data) {
         this.parentElement = parentElement;
         this.data = data
-
-        console.log("Spotify data analysis")
-        console.log(data)
-
         //this.cleanData();
         this.prepareData()
         this.init()
@@ -37,12 +34,40 @@ class figures {
     prepareData () {
         let vis = this
         vis.totalStreams = 0
+
         vis.data.map(function(d){
-            vis.totalStreams += d.streams
-            tracksStreams[d.track] += d.streams
-
-
+            if(d.country !=='Global') {
+                vis.totalStreams += d.streams
+                tracksStreams[d.track] += d.streams
+            }
         })
+
+        let tracks = {}
+        for (const row in vis.data) {
+            // get country
+            let track = vis.data[row].track
+            let country = vis.data[row].country
+            let streams = vis.data[row].streams
+
+            // do not count global
+            if (country !== 'Global') {
+                // add country if it doesn't exist
+                if (!(track in tracks)) {
+                    tracks[track] = 0
+                }
+                // streams
+                tracks[track] += streams
+            }
+        }
+
+        let res = []
+        for (const track in tracks){
+            let row = {
+                    'track': track,
+                    'streams': tracks[track]
+                }
+                res.push(row)
+            }
     }
 
     init () {
@@ -58,24 +83,16 @@ class figures {
             .attr("height", vis.height)
             .attr('transform', `translate (${vis.margin.left}, ${vis.margin.top})`);
 
-        let stickfigures = 100
         //let valuePerFigure = Math.floor(totalStreams/stickfigures)
-        vis.imgs = []
-        for(let i = 0; i < 100; i++){
-            vis.imgs.push(vis.svg
-                .append("svg:image")
-                .attr("href", "assets/images/figures.png")
-                .attr("x", (i%20)*20)
-                .attr("y", Math.floor(i/20)*20 )
-                .attr("width", "20")
-                .attr("height", "20")
-                .on('click', function(event,d){
-                    console.log(event)
-                    console.log(d)
-                })
-                .transition()
-                .duration(2000));
-        }
+        vis.svg.append("svg:image")
+            .attr("href", "assets/images/figures.png")
+            .attr("x", 10)//(i%20)*20)
+            .attr("y", 10) //Math.floor(i/20)*20 )
+            .attr("width", "30")
+            .attr("height", "30")
+            .transition()
+            .duration(2000);
+
         vis.anchors = []
         vis.tracks = []
         tracksNames.forEach(function(d, index){
@@ -94,7 +111,6 @@ class figures {
                     })
                     .attr('y', function(){
                         if(index>=8){
-                            console.log('uwu')
                             curr_y = 400
                             return 400
                         }
@@ -113,8 +129,33 @@ class figures {
                     .attr('font-size', '10px'))
             vis.anchors.push([curr_x,curr_y])
         })
+        vis.title = vis.svg.append('g')
+            .attr('class', 'title bar-title')
+            .append('text')
+            .text("I equal 20 million streams! " )
+            .attr('transform', `translate(150, 28)`)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '2.5vh')
+            .attr('font-family', 'Grenze Gotisch')
+            .attr('fill', '#DCA54C');
+    }
+
+    movement() {
+        let vis = this
         let curr = 0
-        vis.imgs[0].attr('x',0)
+
+        vis.imgs = []
+        for(let i = 0; i < 201; i++){
+            vis.imgs.push(vis.svg
+                .append("svg:image")
+                .attr("href", "assets/images/figures.png")
+                .attr("x", 10)//(i%20)*20)
+                .attr("y", 10) //Math.floor(i/20)*20 )
+                .attr("width", "30")
+                .attr("height", "30")
+                .transition()
+                .duration(2000));
+        }
 
         tracksNames.forEach(function(d,index){
             let fig = tracksFigures[d]
@@ -123,20 +164,29 @@ class figures {
             for(let i =0; i <= fig;i++){
                 vis.imgs[curr+i]
                     .attr('x',function(){
+
                         if(i>=8){
-                            return x+((i)- 3*Math.floor(i/3))*20-2
+                            return x+((i)- 5*Math.floor(i/5))*20-2
                         }
-                        return x+(i- 3*Math.floor(i/3))*20-2
+                        return x+(i- 5*Math.floor(i/5))*20-2
                     })
                     .attr('y',function(){
                         if(i>=8){
-                            return y+20+Math.floor((i)/3)*20
+                            return y+20+Math.floor((i)/5)*20
                         }
-                        return y+20+Math.floor(i/3)*20
+                        return y+20+Math.floor(i/5)*20
                     })
             }
             curr += fig
         })
-
     }
+}
+
+// add figures on click
+function figureGraph() {
+    if(cleanedData === null || chartInit){
+        return
+    }
+    chartInit = true;
+    mySpotifyFigGraph.movement()
 }
