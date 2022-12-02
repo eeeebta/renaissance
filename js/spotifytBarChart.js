@@ -70,6 +70,27 @@ class BarVis {
         }
 
         vis.cleanedData = res
+
+        vis.countries_track = {}
+        for (const row in vis.data) {
+            let country = vis.data[row].country
+            let track = vis.data[row].track
+            let streams = vis.data[row].streams
+
+            if(country === 'Global'){
+
+            }
+            else {
+                if(!(country in vis.countries_track)){
+                    vis.countries_track[country] = {}
+                }
+                if(!(track in vis.countries_track[country])) {
+                    vis.countries_track[country][track] = 0
+                }
+                vis.countries_track[country][track] += streams
+            }
+        }
+
     }
 
     initVis() {
@@ -98,32 +119,20 @@ class BarVis {
             .attr('font-family', 'Grenze Gotisch')
             .attr('fill', '#DCA54C');
 
-        vis.tooltip = d3.select("body")
+        let offsets = document.getElementById('spotifyVisGlobetooltip_div').getBoundingClientRect();
+        let top = offsets.top;
+        let left = offsets.left;
+        console.log(top,left)
+
+        vis.tooltip = d3.select("#spotifyVisGlobetooltip_div")
             .append("div")
-            .attr("class", "tooltip")
+            .style("position", "absolute")
+             .style('top', window.scrollY +top + 100 + 'px')
+             .style('left', window.scrollX  + left+ 450 + 'px')
+            .attr("id","spotifyGraph_tooltip")
+            .html("<h3 >Top 3 songs:</h3><h5 id='firstMost'>ALIEN SUPERSTAR</h5><h5 id='secondMost'>BREAK MY SOUL</h5><h5 id='thirdMost'>ENERGY</h5>");
 
-        vis.tooltip
-            .style("opacity", 1)
-            .attr('position', 'absolute')
-            .attr('top', "50px")
-            .attr('left', "100px")
-            .html(`
-                        <div id="circle_tooltip" class="music_tooltip">
-                            <h3 class="song_title">${vis.selection}</h3>
-                            <h4 class="song_info">Key: </h4>
-                            <h4 class="song_info">BPM: </h4>
-                            <h4 class="song_info">Length:</h4>
-                        </div>`);
-        console.log("YEIIYOO")
-
-        /*
-        // tooltip group
-        vis.tooltip = d3.select("body").append('div')
-            .attr('class', "tooltip")
-            .attr('id', 'barTooltip')
-
-      */
-        // Scales and axes
+         // Scales and axes
         // init scales
         vis.x = d3.scaleTime()
             .range([0, vis.width-vis.margin.right])
@@ -161,6 +170,12 @@ class BarVis {
         }
         vis.displayData = vis.cleanedData[vis.selection]
 
+        vis.rank = Object
+            .entries(vis.countries_track[vis.selection]) // create Array of Arrays with [key, value]
+            .sort(([, a],[, b]) => b-a) // sort by value, descending (b-a)
+            .slice(0,3) // return only the first 3 elements of the intermediate result
+            .map(([n])=> n); // and map that to an array with only the name
+
         vis.updateVis()
     }
 
@@ -168,6 +183,26 @@ class BarVis {
 
     updateVis() {
         let vis = this;
+
+        d3.select("#firstMost")
+            .text(vis.rank[0] + " : " + vis.countries_track[vis.selection][vis.rank[0]].toLocaleString())
+        if (vis.rank[1]) {
+            d3.select("#secondMost")
+                .text(vis.rank[1] + " : " + vis.countries_track[vis.selection][vis.rank[1]].toLocaleString())
+        }
+        else{
+            d3.select("#secondMost")
+                .text("")
+        }
+        if (vis.rank[1]) {
+            d3.select("#thirdMost")
+                .text(vis.rank[2] + " : " + vis.countries_track[vis.selection][vis.rank[2]].toLocaleString())
+        }
+        else{
+            d3.select("#thirdMost")
+                .text("")
+        }
+
 
         vis.y.domain([0,d3.max(vis.displayData, d=>d.streams)])
 
