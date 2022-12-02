@@ -5,7 +5,7 @@ let mySpotifyVisGlobe,
 
 // main driver code for
 function spotifyDriver(data, geoData){
-    cleanedData = data
+    cleanedData = cleanSpotifyData(data)
     mySpotifyVisGlobe = new spotifyGlobeVis("spotifyVisGlobe_div", data, geoData);
     mySpotifyFigGraph = new spotifyFigVis("songsDist", cleanedData);
 
