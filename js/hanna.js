@@ -75,7 +75,7 @@ class musicVis {
         // define color scale
         vis.colorScale = d3.scaleLinear()
             .domain([0, vis.songData.length])
-            .range(["#ff77d3", "#84b1ff"])
+            .range(['black', "#DCA54C"])
 
         this.wrangleData()
     }
@@ -253,8 +253,8 @@ class musicVis {
 
                     vis.tooltip
                         .style("opacity", 1)
-                        .style("left", event.x - 70 + "px")
-                        .style("top", event.y - 630 + "px")
+                        .style("left", event.screenX - 70 + "px")
+                        .style("top", event.screenY - 630 + "px")
                         .html(`
                         <div id="circle_tooltip" class="music_tooltip">
                             <h3 class="song_title">${d.Song_title}</h3>
@@ -264,7 +264,6 @@ class musicVis {
                         </div>`);
                 })
                 .on("mouseout", function(event, d) {
-                    console.log(d)
                     d3.select(this)
                         .attr("fill", d => vis.colorScale(d.track_number))
 
