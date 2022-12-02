@@ -63,6 +63,7 @@ p {
 }
 
 #musicVis_div {
+    display: inline-block;
     width: 100%;
     height: 80vh;
 }
@@ -78,15 +79,9 @@ p {
     font-size: 24px;
 }
 
-.music_tooltip {
-    border: thin solid grey;
-    border-radius: 5px;
-    background: #181818;
-    padding: 1vh;
-}
-
 #circle_tooltip {
-    width: 25vh;
+    width: 40vh;
+    transform: translate(110vh, -70vh)
 }
 
 #sample_tooltip {
@@ -117,18 +112,27 @@ p {
     padding-bottom: 20vh;
 }
 
+.sampleMusicVis {
+    margin-bottom: 10vh;
+}
+
 .sample_intro {
     font-size: 24px;
     font-family: "EB Garamond";
 }
 
-.sampleMusicVis {
-    margin-left: 8%;
+#sample_container {
+    width: 100%;
 }
 
 #sampleVis_div {
-    width: 100%;
-    height:40vh;
+    height:50vh;
+    display: inline-block;
+}
+
+#sample_tooltip {
+    height:50vh;
+    display: inline-block;
 }
 
 .tooltip {
@@ -136,14 +140,14 @@ p {
     text-align: center;
 }
 
-.tooltip h3 {
+.tooltip .song_title {
     text-align: left;
     font-weight: bold;
     font-size: 24px;
     font-family: "Grenze Gotisch";
 }
 
-.tooltip h4 {
+.tooltip .song_info {
     text-align: left;
     font-size: 16px;
     font-family: "EB Garamond";

@@ -63,12 +63,6 @@ class musicVis {
             .attr("class", "song-lines")
             .attr("transform", "translate(" + ((vis.width / 2)) + ", " + (vis.outerRadius) + ") rotate(-15)" )
 
-
-        // append tooltip
-        vis.tooltip = d3.select("#musicVis_div")
-            .append("div")
-            .attr("class", "tooltip")
-
         // **** init slide progression stuff ****
         vis.slideNo = 1;
 
@@ -247,31 +241,22 @@ class musicVis {
                 .attr("fill", d => vis.colorScale(d.track_number))
                 .on("mouseover", function(event, d) {
                     d3.select(this)
-                        .attr("fill", "black")
+                        .attr("r", "1.2vh")
 
                     console.log(event);
 
-                    vis.tooltip
-                        .style("opacity", 1)
-                        .style("left", event.screenX - 70 + "px")
-                        .style("top", event.screenY - 630 + "px")
-                        .html(`
-                        <div id="circle_tooltip" class="music_tooltip">
-                            <h3 class="song_title">${d.Song_title}</h3>
-                            <h4 class="song_info">Key: ${d.key}</h4>
-                            <h4 class="song_info">BPM: ${d.bpm}</h4>
-                            <h4 class="song_info">Length: ${d.length}</h4>
-                        </div>`);
+
+                    document.getElementById("circle_tooltip").innerHTML = `
+                            <h4 class="song_title">${d.Song_title}</h4>
+                            <p class="song_info">Key: ${d.key}</p>
+                            <p class="song_info">BPM: ${d.bpm}</p>
+                            <p class="song_info">Length: ${d.length}</p>`
                 })
                 .on("mouseout", function(event, d) {
                     d3.select(this)
-                        .attr("fill", d => vis.colorScale(d.track_number))
+                        .attr("r", "0.9vh")
 
-                    vis.tooltip
-                        .style("opacity", 0)
-                        .style("left", 0)
-                        .style("top", 0)
-                        .html(``);
+                    document.getElementById("circle_tooltip").innerHTML = "";
                 })
         }
     }
@@ -394,11 +379,6 @@ class sampleVis{
             .attr("class", "y-axis axis")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
-        // init tooltips
-        vis.tooltip = d3.select("#sampleVis_div")
-            .append("div")
-            .attr("class", "tooltip")
-
         vis.wrangleData();
     }
 
@@ -489,7 +469,7 @@ class sampleVis{
         bars.enter().append("rect")
             .attr("class", "bar")
             .merge(bars)
-            .attr("width", 14)
+            .attr("width", 13)
             .attr("fill", "white")
             .attr("height", d => vis.y_bar(d[1]))
             .attr("x", (d, i) => vis.x(1972 + i) + vis.margin.left - 7)
@@ -497,33 +477,17 @@ class sampleVis{
             .on("mouseover", (event, d) => {
                 let samples = d[2];
 
-                // TO-DO
-                // have samples.forEach add to the inner HTML of the div
-
-                vis.tooltip
-                    .style("opacity", 1)
-                    .style("left", event.x - 170 + "px")
-                    .style("top", event.y - 650 + "px")
-                    .html(`
-                <div id="sample_tooltip" class="music_tooltip">
-                  
-                </div>`);
-
                 let tooltipHTML = ``;
                 samples.forEach(d => {
                     tooltipHTML = tooltipHTML +
-                        `<h3 className='song_title'>${d.sample}</h3>`
-                        + `<h4 className='song_info'>Year: ${d.year}</h4>`
-                        + `<h4 className='song_info'>Genre: ${d.genre}</h4>`;
+                        `<h4 className='song_title'>${d.sample}</h4>`
+                        + `<p className='song_info'>Year: ${d.year}</p>`
+                        + `<p className='song_info'>Genre: ${d.genre}</p>`;
                 })
                 document.getElementById("sample_tooltip").innerHTML = tooltipHTML;
             })
             .on("mouseout", (event, d) => {
-                vis.tooltip
-                    .style("opacity", 0)
-                    .style("left", 0)
-                    .style("top", 0)
-                    .html(``);
+                document.getElementById("sample_tooltip").innerHTML = "";
             })
 
     }
