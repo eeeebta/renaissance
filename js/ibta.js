@@ -187,7 +187,7 @@ class narrativeVis {
             .attr("class", "circles")
             .attr("fill", "#DDA54C")
             .attr("stroke", "none")
-            .attr("cx", (d) => { return vis.x(d.name)})
+            .attr("cx", (d) => { return vis.x(d.name)+24})
             .attr("cy", (d) => { return vis.y(d[selectedValue]) })
             .attr("r", 5)
             
@@ -200,7 +200,7 @@ class narrativeVis {
             .duration(100)
             .attr("d", d3.line()
                 .x((d) => {
-                    return vis.x(d.name)
+                    return vis.x(d.name) + 24
                 })
                 .y((d) => {
                     return vis.y(d[selectedValue])

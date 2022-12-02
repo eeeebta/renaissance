@@ -196,6 +196,7 @@ p {
     padding:5vh;
 }
 
+
 /* Container for globe vis */
 /* globe */
 .container__left{
@@ -212,10 +213,11 @@ p {
 }
 
 button{
-    margin: auto;
-    width: 100px;
+    width: 180px;
     height:40px;
-    border: 1px solid #DCA54C;
+    /*border: 1px solid #DCA54C;
+    */
+
 }
 
 #album_cover{
@@ -225,8 +227,8 @@ button{
 }
 
 #songsDist{
-    height: 70vh;
-    margin-left: 10px;
-    margin-right:10px;
+    margin-top:20px;
+    height: 58vh;
+
 }
 

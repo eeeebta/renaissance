@@ -1,10 +1,10 @@
-var rotate = [.001, 0],
+let rotate = [.001, 0],
     velocity = [.013, 0],
     time = Date.now();
-var selectionDrag = false
-var selectionCoun = false
-var currentCount = null
-var locator = null
+let selectionDrag = false
+let selectionCoun = false
+let currentCount = null
+let locator = null
 
 class spotifyGlobeVis {
     constructor(parentElement, data, geoData) {
@@ -14,15 +14,11 @@ class spotifyGlobeVis {
         this.displayData = null;
         this.mySpotifyVisBar = null
 
-        console.log("Spotify data analysis")
-        //this.cleanData();
-
         this.initVis();
     }
 
     initVis() {
         let vis = this;
-        console.log(vis.geoData)
         // set margin and width/height
         vis.margin = {top: 20, right: 10, bottom: 20, left: 0};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -89,9 +85,6 @@ class spotifyGlobeVis {
                     d3.selectAll(".graticule").attr("d", vis.path)
                 })
                 .on('end',function(event){
-                    console.log(vis.projection)
-                    //rotate[1] = event.x
-                    //rotate[0] = event.y
                     selectionDrag = false
                 })
         )
@@ -118,7 +111,7 @@ class spotifyGlobeVis {
             vis.countrySongs[d.country][d.track] += d.streams
 
         });
-        console.log(vis.countrySongs)
+
         vis.displayData = vis.country;
         vis.updateVis()
     }
@@ -168,9 +161,7 @@ class spotifyGlobeVis {
 
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
-                    console.log('EDW')
                     //vis.div.style("display", "none");
-                    console.log("tora tha ginei tis poutanas")
 
                     // if we have previously created a graph then we want to call update on the old one
                     if(vis.mySpotifyVisBar === null) {
@@ -306,12 +297,7 @@ class BarVis {
     }
 
     initVis() {
-
         let vis = this;
-
-        console.log("Begin creating graph for " + vis.selection)
-        console.log("With the data:")
-        console.log(vis.displayData)
 
         // define dimensions
         vis.margin = {top: 20, right: 20, bottom: 40, left: 60};
@@ -365,7 +351,6 @@ class BarVis {
 
 
         // begin data wrangling
-        console.log("data wrangling")
         this.wrangleData();
     }
 
@@ -373,7 +358,6 @@ class BarVis {
     wrangleData(selection=null) {
         let vis = this
         if(selection !== null){
-            console.log("SWITCH IT ")
             vis.selection = selection
         }
         /*
@@ -387,11 +371,9 @@ class BarVis {
                 console.log('New display data')
                 console.log(vis.displayData)
         */
-        console.log('READY TO ROCK N ROLL')
         vis.displayData = vis.cleanedData[vis.selection].sort(function(a,b){
             return a.date - b.date
         })
-        console.log(vis.displayData)
 
         vis.updateVis()
     }

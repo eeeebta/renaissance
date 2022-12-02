@@ -4,7 +4,7 @@ let mySpotifyVisGlobe,
     mySpotifyFigGraph
 
 // main driver code for spotify
-// creates globe and figure graphs 
+// creates globe and figure graphs
 function spotifyDriver(data, geoData){
     cleanedData = cleanSpotifyData(data)
     mySpotifyVisGlobe = new spotifyGlobeVis("spotifyVisGlobe_div", cleanedData, geoData);

@@ -27,7 +27,6 @@ class spotifyFigVis {
     constructor(parentElement, data) {
         this.parentElement = parentElement;
         this.data = data
-        //this.cleanData();
         this.prepareData()
         this.init()
     }
@@ -41,7 +40,8 @@ class spotifyFigVis {
                 tracksStreams[d.track] += d.streams
             }
         })
-
+        console.log(vis.totalStreams)
+        /*
         let tracks = {}
         for (const row in vis.data) {
             // get country
@@ -68,12 +68,14 @@ class spotifyFigVis {
                 }
                 res.push(row)
             }
+          */
+
     }
 
     init () {
         let vis = this;
         // set margin and width/height
-        vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
+        vis.margin = {top: 0, right: 0, bottom: 20, left: 0};
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
@@ -103,19 +105,19 @@ class spotifyFigVis {
                     .attr('class', 'tracks')
                     .attr('x', function() {
                         if(index>=8){
-                            curr_x = (index - 8) * 120
-                            return (index - 8) * 120
+                            curr_x = (index - 8) * 145
+                            return (index - 8) * 145
                         }
-                        curr_x = (index*120)
-                        return (index*120)
+                        curr_x = (index*145)
+                        return (index*145)
                     })
                     .attr('y', function(){
                         if(index>=8){
                             curr_y = 400
                             return 400
                         }
-                        curr_y = 150
-                        return 150})
+                        curr_y = 90
+                        return 90})
                     .text(function(){
                         if(d === "MOVE (feat. Grace Jones & Tems)"){
                             return 'MOVE'
@@ -125,18 +127,20 @@ class spotifyFigVis {
                         }
                         return d
                     })
-                    .attr('fill','white')
-                    .attr('font-size', '10px'))
+                    .attr('font-size', '15px')
+                    .attr('font-family', 'Grenze Gotisch')
+                    .attr('fill', '#DCA54C'))
+
             vis.anchors.push([curr_x,curr_y])
         })
         vis.title = vis.svg.append('g')
             .attr('class', 'title bar-title')
             .append('text')
-            .text("I equal 20 million streams! " )
-            .attr('transform', `translate(150, 28)`)
+            .text("I represent 1.3 million streams or 1/200th of the total streams! " )
+            .attr('transform', `translate(280, 32)`)
             .attr('text-anchor', 'middle')
-            .attr('font-size', '2.5vh')
-            .attr('font-family', 'Grenze Gotisch')
+            .attr('font-size', '2.0vh')
+            .attr('font-family', 'EB Garamond')
             .attr('fill', '#DCA54C');
     }
 
