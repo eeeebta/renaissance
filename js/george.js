@@ -3,18 +3,17 @@ let cleanedData = null;
 let mySpotifyVisGlobe,
     mySpotifyFigGraph
 
-// main driver code for
+// main driver code for spotify
+// creates globe and figure graphs 
 function spotifyDriver(data, geoData){
     cleanedData = cleanSpotifyData(data)
-    mySpotifyVisGlobe = new spotifyGlobeVis("spotifyVisGlobe_div", data, geoData);
+    mySpotifyVisGlobe = new spotifyGlobeVis("spotifyVisGlobe_div", cleanedData, geoData);
     mySpotifyFigGraph = new spotifyFigVis("songsDist", cleanedData);
 
 }
 
 // cleans data
 function cleanSpotifyData(data) {
-    console.log(data)
-
     let cleaned = [];
     data.forEach(function(d){
         d = {
@@ -34,4 +33,5 @@ function cleanSpotifyData(data) {
     });
     return cleaned;
 }
+
 

@@ -36,8 +36,7 @@ function init_musical(allDataArray) {
 
 // spotify data visualization initialization
 function init_spotify(allDataArray) {
-    // construct spotify vis
-    spotifyDriver(allDataArray[3]), allDataArray[5]);
+    spotifyDriver(allDataArray[3], allDataArray[5]);
 }
 
 
