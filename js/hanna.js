@@ -243,8 +243,6 @@ class musicVis {
                     d3.select(this)
                         .attr("r", "1.2vh")
 
-                    console.log(event);
-
 
                     document.getElementById("circle_tooltip").innerHTML = `
                             <h4 class="song_title">${d.Song_title}</h4>
@@ -330,8 +328,6 @@ class sampleVis{
     constructor(parentElement, songData) {
         this.parentElement = parentElement;
         this.songData = songData;
-
-        console.log("musical data: " , this.songData);
 
         this.initVis()
     }
@@ -425,7 +421,6 @@ class sampleVis{
                 }
             }
         })
-        console.log(vis.sampleSongData);
 
         // aggregate # of samples and samples based on their release year
         vis.sampleData = [];
@@ -442,7 +437,6 @@ class sampleVis{
                 }
             })
         })
-        console.log(vis.sampleData);
 
 
 
