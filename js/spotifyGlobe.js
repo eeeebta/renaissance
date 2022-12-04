@@ -45,7 +45,10 @@ class spotifyGlobeVis {
         vis.path = d3.geoPath()
             .projection(vis.projection);
 
-        vis.svg.append("path")
+        // append g element for map
+        vis.map = vis.svg.append("g");
+
+        vis.map.append("path")
             .datum({type: "Sphere"})
             .attr("class", "graticule")
             .attr('fill', '#ADDEFF')
@@ -53,6 +56,7 @@ class spotifyGlobeVis {
             .attr("d", vis.path);
 
         vis.world = topojson.feature(vis.geoData, vis.geoData.objects.countries).features
+
         vis.countries = vis.svg.selectAll(".country")
             .data(vis.world)
             .enter().append("path")
@@ -61,7 +65,7 @@ class spotifyGlobeVis {
 
         let m0,
             o0;
-
+        
         vis.svg.call(
             d3.drag()
                 .on("start", function (event) {

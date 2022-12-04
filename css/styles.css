@@ -213,6 +213,12 @@ p {
     float:right
 }
 
+@media only screen and (max-width: 1800px) {
+    .container__right {
+        width: 115vh;
+    }
+}
+
 button{
     width: 180px;
     height:40px;
@@ -229,7 +235,7 @@ button{
 
 #songsDist{
     margin-top:20px;
-    height: 58vh;
+    height: 75vh;
 
 }
 
