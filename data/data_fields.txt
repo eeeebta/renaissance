@@ -1,8 +1,16 @@
 ACT I DATA
 
+File: songs_cleaned.csv
+File description: data for each occurrence of a song from Renaissance for a given day and country. Track data includes:
+                    track name, album name artist name, artist features on the song, streams in that day, country name,
+                    country name short abbreviation, and date
+
+File: world-110m.json
+File description: json data including the geographical geometries location of countries
 
 
 ACT II DATA
+
 File: key_signature_data.csv
 Field description: major, minor, and full key titles corresponding to each slice on the circle of fifths
     (ex. slice with keysig_id 0 is C major, whose relative minor is A minor, so they are both on the same slice)

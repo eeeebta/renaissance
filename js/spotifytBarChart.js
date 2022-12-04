@@ -171,10 +171,10 @@ class BarVis {
         vis.displayData = vis.cleanedData[vis.selection]
 
         vis.rank = Object
-            .entries(vis.countries_track[vis.selection]) // create Array of Arrays with [key, value]
-            .sort(([, a],[, b]) => b-a) // sort by value, descending (b-a)
-            .slice(0,3) // return only the first 3 elements of the intermediate result
-            .map(([n])=> n); // and map that to an array with only the name
+            .entries(vis.countries_track[vis.selection])
+            .sort(([, a],[, b]) => b-a)
+            .slice(0,3)
+            .map(([n])=> n); 
 
         vis.updateVis()
     }

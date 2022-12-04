@@ -65,7 +65,7 @@ class spotifyGlobeVis {
 
         let m0,
             o0;
-        
+
         vis.svg.call(
             d3.drag()
                 .on("start", function (event) {
@@ -97,7 +97,7 @@ class spotifyGlobeVis {
 
     wrangleData() {
         let vis = this;
-        // create data structure with information for each countri
+        // create data structure with information for each country
         vis.country = {}
 
         vis.countrySongs = {}
@@ -122,7 +122,6 @@ class spotifyGlobeVis {
     updateVis() {
         let vis = this;
         let keys = Object.keys(vis.displayData);
-        // FIX THIS! change from dict to obj
         let max = 4000000,
             min = Infinity
         keys.forEach(function(key){
@@ -164,7 +163,6 @@ class spotifyGlobeVis {
 
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
-                    //vis.div.style("display", "none");
 
                     // if we have previously created a graph then we want to call update on the old one
                     if(vis.mySpotifyVisBar === null) {
@@ -174,10 +172,7 @@ class spotifyGlobeVis {
                         vis.mySpotifyVisBar.wrangleData(d.properties.name)
                     }
                     vis.div.style('display','block')
-                    //vis.tooltipTitle.text(d.properties.name)
-                    //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
-                    //vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
 
                 }
                 // re-clicked country
@@ -190,10 +185,6 @@ class spotifyGlobeVis {
                     selectionCoun = false
                     // hide vis
                     vis.div.style('display','none')
-
-                    //vis.tooltipTitle.text("")
-                    //vis.tooltipStreams.text("")
-                    //vis.tooltipMost.text("")
                 }
                 // different selection
                 else{
@@ -211,12 +202,9 @@ class spotifyGlobeVis {
                     rotate[0] = vis.projection.rotate()[0]
                     rotate[1] = vis.projection.rotate()[1]
 
-                    // UPDATE GRAPH
+                    // graph update
                     vis.mySpotifyVisBar.wrangleData(currentCount.properties.name)
-                    //vis.tooltipTitle.text(d.properties.name)
-                    //vis.tooltipStreams.text("Total streams: " + vis.displayData[selectedCountry])
                     let mostSteamedSong = Object.keys(vis.countrySongs[selectedCountry]).reduce((a, b) => vis.countrySongs[selectedCountry][a] > vis.countrySongs[selectedCountry][b] ? a : b)
-                    //vis.tooltipMost.text("Most listened song was " + mostSteamedSong)
                 }
             })
 
