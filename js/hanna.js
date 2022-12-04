@@ -69,7 +69,7 @@ class musicVis {
         // define color scale
         vis.colorScale = d3.scaleLinear()
             .domain([0, vis.songData.length])
-            .range(['black', "#DCA54C"])
+            .range(['#848cff', "#ff77d3"])
 
         this.wrangleData()
     }
