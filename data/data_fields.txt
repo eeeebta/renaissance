@@ -1,0 +1,16 @@
+ACT I DATA
+
+
+
+ACT II DATA
+File: key_signature_data.csv
+Field description: major, minor, and full key titles corresponding to each slice on the circle of fifths
+    (ex. slice with keysig_id 0 is C major, whose relative minor is A minor, so they are both on the same slice)
+
+File: music_data.csv
+Field description: data for each track number and each track's samples. Track data includes song title, BPM, key, song length,
+    whether the song transitions smoothly into the next song, and the genre of the track. For each track, each sample includes
+    data on the sample's title & artist, year of release, and genre.
+
+
+ACT III DATA
