@@ -22,3 +22,9 @@ Field description: data for each track number and each track's samples. Track da
 
 
 ACT III DATA
+
+File: subjective_all.csv
+Field description: Each column represents the subjective data provided by Spotify's API
+
+File: lyrics_all.csv
+Field description: data for all of the songs: songs [the songs], lyrics [the lyrics for each song], and annotation [annotation/description provided by Genius]

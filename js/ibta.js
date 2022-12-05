@@ -1,14 +1,14 @@
 class narrativeVis {
     constructor(parentElement, data, descData) {
-        console.log("hdashdsa")
+        // Load relevant data
         this.parentElement = parentElement;
         this.data = data;
         this.songNames = [];
         this.descData = descData;
         this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
-        // this.songID = {}
         this.danceability = []
 
+        // 
         this.descSpotSub = {"Danceability": "Danceability represents, based on Spotify's analysis, how danceable it is -- taking into consideration tempo and rhythm",
                             "Valence": "A higher valence score is attributed to the song being happier/euphoric, whereas lower is more negative/sad",
                             "Energy": "The intensity of a track -- like if it's fast or loud and energizing",
@@ -43,9 +43,6 @@ class narrativeVis {
         vis.margin = {top: 20, right: 30, bottom: 180, left: 60};;
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
-
-        console.log(vis.width)
-        console.log(vis.height)
 
         // init drawing area
         vis.svg = d3.select("#" + vis.parentElement)
@@ -157,9 +154,6 @@ class narrativeVis {
             .merge(circles)
             .on("mouseover", function (e, d) {
                 d3.select(this).attr("r", 8);
-
-                console.log(d.name)
-                console.log(e)
                 
                 vis.tooltip
                     .style("opacity", 1)
@@ -219,8 +213,6 @@ class lyricVis {
         this.data = data;
         this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
 
-        console.log(data)
-
         this.songHighlights = {
             0: ['The sample present throughout the track originates from Memphis underground legend Tommy Wright IIIs 1994 Track ‘Still Pimpin, With the vocal chop performed by female hip-hop pionneer Princess Loko (Passed Away In 2020)\n', 'The choice of this sample is likely to pay homage to both memphis legends, and for there contributions to hip-hop in its infancy\n', '\n', 'She is addressing the people that say her popularity is because of her husband and her wealth, she is saying she wouldve been who she is without all of it.\n', '\n', 'Her influence is natural, she was born with it. Everyone that encounters her gets a boost from being associated with her. ex. Megan Thee Stallion got her 1st grammy due to her collab w/ Beyonce and has been going up ever since her impact on people is undeniable rather you like her music or not\n', '\n', 'Besides selling high-end luxury cars, automobile manufacturer Cadillac also makes and sells more “affordable” ones, like those in the DeVille series. On the ‘92 version, you can often see that those cars have Vogue Tyres: theyre a company that manufacture luxury tires, wheels and car accessories. Typically, you can distinguish Vogue Tyres as they often have a colored (mostly yellow or red) stripe on the tire.'],
             1: ['Here Beyoncé uses a metaphor to refer to how societies verbal aggression and discrimination towards black minorities and the LGBTQ+ community has ultimately lead to these people rising with pride and bulding up stronger communities.\n', 'Throughout Renaissance, genres such as House and music, originated at the clubs and ballroom scene are revisited and celebrated. An obvious message that transpires from the record is that creative black and queer folk pushed musics boundaries in their own spaces, built as an escape from a society that had alienated them and forced hate upon their identities.\n', '\n', 'Beyoncé shares in these lines that she loves the look of the scars on her body, that were probably the result of an emergency cesarean (otherwise known as a C-section) to birth her twins, Sir and Rumi Carter, on 13 June 2017. In her documentary Homecoming) she talks about the multiple complications she had during her pregnancy with the twins.\n', 'By singing these lines, Beyoncé clarifies that she is proud to be a mother, despite the physical (or mental) scars it mightve given her.\n', 'In a broader context, Beyoncé might also be referring to her metaphorical “battle scars,” in which she appreciates any hard time shes endured, as they helped to make her the person she is now.\n', '\n', 'In this line, Beyoncé might be recalling the “elevator incident” between her husband, JAY-Z, and her sister, Solange. This incident happened while the three, including a bodyguard, were on their way to leave the 2014 MET Gala party. Shortly after the party, a surveillance video of Solange attacking JAY-Z in an elevator got leaked. It fed a lot of speculation, especially towards JAY-Zs possible infidelity towards Beyoncé, that basically later got confirmed when Beyoncé released two years later the album Lemonade and JAY-Z 4:44 a year after that.\n', '\n', 'In 2020, trans icon, host and reality television personality Ts Madison posted the video B*tch Im BLACK on her YouTube channel. She got candidly honest about being a black (trans) person, and expressed with a drop of humor how tired she is of all the injustice black people have to face. The monologue got quickly praised, and even labeled as one of Ts Madisons most iconic speeches.\n', '\n', 'Beyoncé didnt just describe the Pride pride flag on “Cozy” - she specifically described Daniel Quasars “Progress” pride flag to bring to the forefront marginalized LGBTQ+ people of color, trans people, and those living with / lost to HIV/AIDS (https://twitter.com/BIacklsKing/status/1552951022066323458)\n', '\n'],
@@ -272,7 +264,6 @@ class lyricVis {
 
         let selectedValue = d3.select("#filterSong").property("value");
 
-        // console.log(vis.data[vis.songRef[selectedValue]]["lyrics"]);
 
         let lyrics = d3.select("#lyrics-view");
         let desc = d3.select("#song-desc");
@@ -291,13 +282,11 @@ class lyricVis {
         tmpLyrics.remove();
         tmpDesc.remove();
         
-        // desc.remove();
+
 
        let newLyrics = vis.data[vis.songRef[selectedValue]]["lyrics"].split("\\n");
-       console.log("LYRICSAA " + newLyrics)
        let newDesc = vis.songHighlights[vis.songRef[selectedValue]];
 
-       console.log(newLyrics)
 
        let newLstring = "";
        let newDescString = "";
