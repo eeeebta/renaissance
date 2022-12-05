@@ -53,6 +53,7 @@ class narrativeVis {
             .append("g")
             .attr("transform", `translate(${vis.margin.left}, ${vis.margin.top})`)
 
+        // Creating scales
         vis.x = d3.scaleBand()
             .domain(this.songNames)
             .range([vis.width, 0]);
@@ -80,6 +81,7 @@ class narrativeVis {
             .attr("transform", "rotate(-65)"); 
 
 
+        // Adding new path and data
         vis.svg.append("path")
 			.datum(vis.data)
 			.attr("d", d3.line()
@@ -92,6 +94,7 @@ class narrativeVis {
             )
 			.attr("class", "line-ibta");
 
+        // Creating tooltips and adding them on change
         vis.tooltip = d3.select("#circleTT")
                 .attr("class", "ibta-tooltip col")
 
@@ -120,6 +123,8 @@ class narrativeVis {
     }
 
     wrangleData() {
+
+        // No wrangling required
         let vis = this;
 
 
@@ -127,6 +132,8 @@ class narrativeVis {
     }
 
     updateVis() {
+
+        // Update vis on where the circles go and where the path goes
         let vis = this;
 
         let selectedValue = d3.select("#filterNar").property("value").toLowerCase();
@@ -212,8 +219,10 @@ class lyricVis {
     constructor(parentElement, data) {
         this.parentElement = parentElement;
         this.data = data;
+        // Song references when importing objects
         this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
 
+        // All of the genius descriptions (was supposed to move this to file)
         this.songHighlights = {
             0: ['The sample present throughout the track originates from Memphis underground legend Tommy Wright IIIs 1994 Track ‘Still Pimpin, With the vocal chop performed by female hip-hop pionneer Princess Loko (Passed Away In 2020)\n', 'The choice of this sample is likely to pay homage to both memphis legends, and for there contributions to hip-hop in its infancy\n', '\n', 'She is addressing the people that say her popularity is because of her husband and her wealth, she is saying she wouldve been who she is without all of it.\n', '\n', 'Her influence is natural, she was born with it. Everyone that encounters her gets a boost from being associated with her. ex. Megan Thee Stallion got her 1st grammy due to her collab w/ Beyonce and has been going up ever since her impact on people is undeniable rather you like her music or not\n', '\n', 'Besides selling high-end luxury cars, automobile manufacturer Cadillac also makes and sells more “affordable” ones, like those in the DeVille series. On the ‘92 version, you can often see that those cars have Vogue Tyres: theyre a company that manufacture luxury tires, wheels and car accessories. Typically, you can distinguish Vogue Tyres as they often have a colored (mostly yellow or red) stripe on the tire.'],
             1: ['Here Beyoncé uses a metaphor to refer to how societies verbal aggression and discrimination towards black minorities and the LGBTQ+ community has ultimately lead to these people rising with pride and bulding up stronger communities.\n', 'Throughout Renaissance, genres such as House and music, originated at the clubs and ballroom scene are revisited and celebrated. An obvious message that transpires from the record is that creative black and queer folk pushed musics boundaries in their own spaces, built as an escape from a society that had alienated them and forced hate upon their identities.\n', '\n', 'Beyoncé shares in these lines that she loves the look of the scars on her body, that were probably the result of an emergency cesarean (otherwise known as a C-section) to birth her twins, Sir and Rumi Carter, on 13 June 2017. In her documentary Homecoming) she talks about the multiple complications she had during her pregnancy with the twins.\n', 'By singing these lines, Beyoncé clarifies that she is proud to be a mother, despite the physical (or mental) scars it mightve given her.\n', 'In a broader context, Beyoncé might also be referring to her metaphorical “battle scars,” in which she appreciates any hard time shes endured, as they helped to make her the person she is now.\n', '\n', 'In this line, Beyoncé might be recalling the “elevator incident” between her husband, JAY-Z, and her sister, Solange. This incident happened while the three, including a bodyguard, were on their way to leave the 2014 MET Gala party. Shortly after the party, a surveillance video of Solange attacking JAY-Z in an elevator got leaked. It fed a lot of speculation, especially towards JAY-Zs possible infidelity towards Beyoncé, that basically later got confirmed when Beyoncé released two years later the album Lemonade and JAY-Z 4:44 a year after that.\n', '\n', 'In 2020, trans icon, host and reality television personality Ts Madison posted the video B*tch Im BLACK on her YouTube channel. She got candidly honest about being a black (trans) person, and expressed with a drop of humor how tired she is of all the injustice black people have to face. The monologue got quickly praised, and even labeled as one of Ts Madisons most iconic speeches.\n', '\n', 'Beyoncé didnt just describe the Pride pride flag on “Cozy” - she specifically described Daniel Quasars “Progress” pride flag to bring to the forefront marginalized LGBTQ+ people of color, trans people, and those living with / lost to HIV/AIDS (https://twitter.com/BIacklsKing/status/1552951022066323458)\n', '\n'],
@@ -237,6 +246,8 @@ class lyricVis {
     }
 
     initVis() {
+
+        // Create the svg and look for updates in the visualization
         let vis = this;
 
         // init margins and height
@@ -260,6 +271,8 @@ class lyricVis {
     }
 
     updateVis() {
+
+        // Add or remove lyrics once changed
 
         let vis = this;
 
