@@ -8,7 +8,7 @@ class narrativeVis {
         this.songRef = {"I'M THAT GIRL": 0, "COZY": 1, "ALIEN SUPERSTAR": 2, "CUFF IT": 3, "ENERGY": 4, "BREAK MY SOUL": 5, "CHURCH GIRL": 6, "PLASTIC OFF THE SOFA": 7, "VIRGO'S GROOVE": 8, "MOVE": 9, "HEATED": 10, "THIQUE": 11, "ALL UP IN YOUR MIND": 12, "AMERICA HAS A PROBLEM": 13, "PURE/HONEY": 14, "SUMMER RENAISSANCE": 15};
         this.danceability = []
 
-        // 
+        // Descriptions for each used 
         this.descSpotSub = {"Danceability": "Danceability represents, based on Spotify's analysis, how danceable it is -- taking into consideration tempo and rhythm",
                             "Valence": "A higher valence score is attributed to the song being happier/euphoric, whereas lower is more negative/sad",
                             "Energy": "The intensity of a track -- like if it's fast or loud and energizing",
@@ -17,6 +17,7 @@ class narrativeVis {
                             "Instrumentalness": "The opposite of speechiness. A higher score means that there are more instruments than vocals.",
                             "Liveness": "A measure of if this song was performed live"}
 
+        // Format data
         this.data.forEach((d) => {
             d.danceability = +d.danceability;
             d.energy = +d.energy;
